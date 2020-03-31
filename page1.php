@@ -55,18 +55,18 @@
    <body style="align-content:center;">
 <div class="container">
   <div class="jumbotron">
-    <form action="form.php" method="POST"  id="details">
+    <form action="" name="eodform" id="eodform" method="POST" id="details">
     <h2>EOD</h2>
   <div class="form-group row">
     <label for="ticketnumber" class="col-sm-4">Ticket Number<span class="star" style="color:red">*</span></label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" name="tickenumber" id="ticketnumber" placeholder="Ticket Number" autofocus required>
+      <input type="text" class="form-control" name="ticketnumber" id="ticketnumber" placeholder="Ticket Number" autofocus required>
     </div>
     </div>
     <div class="form-group row">
     <label for="desc" class="col-sm-4">Description</label>
     <div class="col-sm-7">
-      <textarea class="form-control" cols="15" rows="10" name="desc" id="desc" placeholder="Decription"></textarea>
+      <textarea class="form-control" cols="15" rows="10" name="description" id="description" placeholder="Decription"></textarea>
         </div>
     </div>
   <div class="form-group row">
@@ -84,13 +84,13 @@
     <div class="form-group row">
     <label for="login" class="col-sm-4">Login Time<span class="star" style="color:red">*</span></label>
     <div class="col-sm-7">
-            <input type="text"  name="login" id="login" placeholder="Eg: 10:00" required>
+            <input type="time"  name="login_time" id="login_time" placeholder="Eg: 10:00" required>
     </div>
     </div>
     <div class="form-group row">
     <label for="logout" class="col-sm-4">Logout Time<span class="star" style="color:red">*</span></label>
     <div class="col-sm-7">
-            <input type="text"  name="logout" id="logout" placeholder="Eg: 19:00" required>
+            <input type="time"  name="logout_time" id="logout_time" placeholder="Eg: 19:00" required>
     </div>
     </div>
     <div class="form-group row">
@@ -122,13 +122,13 @@
         <div class="form-group row">
             <label for="no_ofsubtickets" class="col-sm-4">Number of Sub Tickets<span class="star" style="color:red">*</span></label>
             <div class="col-sm-7">
-                <input type="number" id="no_ofsubtickets" name="no_ofsubtickets" required>
+                <input type="number" id="no_ofsubtickets" name="no_ofsubtickets">
             </div>
     </div>
     <div class="form-group row">
             <label for="subticketno" class="col-sm-4">Enter the Sub Ticket Numbers<span class="star" style="color:red">*</span></label>
             <div class="col-sm-7">
-                <input type="text" id="subticketno" name="subticketno" required>
+                <input type="text" id="subticketno" name="subticketno">
             </div>
         </div>
     </div>
@@ -142,15 +142,15 @@
     <div id="iterationdiv" class="form-group row">
         <label for="iteration_no" class="col-sm-4">Iteration Number<span class="star" style="color:red">*</span></label>
         <div class="col-sm-7">
-            <input type="number" id="iteration_no" name="iteration_no" required>
+            <input type="number" id="iteration_no" name="iteration_no">
         </div>
     </div>
     <div class="form-group row">
             <div for="" class="col-sm-4"></div>
             <div class="col-sm-7">
                  <div class="buttons">
-                  <button type="button" class="btn btn-success">Submit</button>
-                  <button type="button" class="btn btn-danger">Clear</button>
+                  <button type="submit" name= "submit" id="submit" class="btn btn-success">Submit</button>
+                  <button type="reset" name="reset" id="reset" class="btn btn-danger">Clear</button>
           </div> 
             </div>
         </div>
@@ -159,8 +159,10 @@
   </div>
 </div>
 <script type="text/javascript">
-
+var output="";
   $(document).ready(function(){
+    console.log("inside document ready");
+
 
     $('#subdiv').delay(0).hide(0);
     $('#iterationdiv').delay(0).hide(0);
@@ -179,17 +181,62 @@ $('input[name=istesting]').on("click",  function(){
     else
         $('#iterationdiv').delay(0).hide(0);
 });
+        // $('#eodform').submit(function(){
+           $('#submit').click(function(e){
+          console.log("inside submit button");
+          e.preventDefault();
+          var ticketnumber=$('#ticketnumber').val();
+          var description=$('#description').val();
+          var status=$('#status').val();
+          var estimatedtime=$('#estimatedtime').val();
+          var login_time=$('#login_time').val();
+          var logout_time=$('#logout_time').val();
+          var remainingtime=$('#remainingtime').val();
+          var completepercentage=$('#completepercentage').val();
+          var comments=$('#comments').val();
+          var is_subticket=$('input[name=is_subticket]:checked').val();
+          var no_ofsubtickets=$('#no_ofsubtickets').val();
+          var subticketno=$('#subticketno').val();
+          var istesting=$('input[name=istesting]:checked').val();
+          var iteration_no=$('#iteration_no').val();
 
+
+         console.log(ticketnumber,description,status,estimatedtime,logout_time);
+          $.ajax({
+
+              type:"POST",
+              url: "eoddb.php",
+              data:
+              {
+                ticketnumber: ticketnumber,
+                description: description,
+                status: status,
+                estimatedtime: estimatedtime,
+                login_time: login_time,
+                logout_time:logout_time,
+                remainingtime:remainingtime,
+                completepercentage: remainingtime,
+                comments:comments,
+                is_subticket: is_subticket,
+                no_ofsubtickets: no_ofsubtickets,
+                subticketno: subticketno,
+                istesting: istesting,
+                iteration_no: iteration_no
+
+              },
+              cache: false,
+              success: function (result) {
+            
+           }
+          }); 
+        });
+     
+           $("#reset").click(function(){
+                 $("#eodform").trigger("reset");
+               });
     });
-      $(document).ready(function(){
-  //       $.ajax({
-  //             type: "POST",
-  //             url: "test_bar_dis_08.php",
-  //             cache: false,
-  // success: function (result) {
-  //          }
-  //     }); 
-      });
+      
+//console.log(output);
     
       </script>
   
