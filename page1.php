@@ -42,10 +42,16 @@ h2
 	{
 		display:none;
 	}
+
+  #alertdiv
+  {
+    display:none;
+  }
     
   </style>
    </head>
    <body>
+     <div id="alertdiv" class="alert alert-danger"></div>
    <div class="container mt-4 p-0 border border-dark">
   <div class="jumbotron m-1 py-1">
     <form action="" name="eodform" id="eodform" method="POST" id="details">
@@ -69,37 +75,33 @@ h2
 		</div>
 	</div>
 	<div class="form-group row">
-		<label for="estimatedtime" class="col-sm-4">Estimated Time<span class="star" style="color:red">*</span></label>
+  <label for="completepercentage" class="col-sm-4">Work Completed<span class="star" style="color:red">*</span></label>
 		<div class="col-sm-7">
-			<input type="text"class="form-control" name="estimatedtime" id="estimatedtime" placeholder="Eg: 1hr" required>
+            <input type="text" class="form-control" name="completepercentage" id="completepercentage" placeholder="Eg: 100%" required>
 		</div>
 	</div>
     <div class="form-group row">
-		<label for="login" class="col-sm-2">Login Time<span class="star" style="color:red">*</span></label>
-		<div class="col-sm-4">
-            <input type="text"  name="login" id="login" placeholder="Eg: 10:00" required>
-		</div>
-		<label for="logout" class="col-sm-2">Logout Time<span class="star" style="color:red">*</span></label>
-		<div class="col-sm-4">
-            <input type="text"  name="logout" id="logout" placeholder="Eg: 19:00" required>
+		<label for="login" class="col-sm-3">Login Time<span class="star" style="color:red">*</span></label>
+		<div class="col-sm-2">
+            <input type="time" class="form-control" name="login" id="login" placeholder="Eg: 10:00" required>
+    </div>
+    <div class="col-sm-1"></div>
+		<label for="logout" class="col-sm-3">Logout Time<span class="star" style="color:red">*</span></label>
+		<div class="col-sm-2">
+            <input type="time" class="form-control" name="logout" id="logout" placeholder="Eg: 19:00" required>
 		</div>
     </div>
-    <!-- <div class="form-group row">
-		
-    </div> -->
     <div class="form-group row">
-		<label for="remainingtime" class="col-sm-2">Remaining Time<span class="star" style="color:red">*</span></label>
-		<div class="col-sm-4">
-            <input type="text"  name="remainingtime" id="remainingtime" placeholder="Eg: 1hr" required>
-		</div>
-		<label for="completepercentage" class="col-sm-2">Work Completed<span class="star" style="color:red">*</span></label>
-		<div class="col-sm-4">
-            <input type="text"  name="completepercentage" id="completepercentage" placeholder="Eg: 100%" required>
+		<label for="remainingtime" class="col-sm-3">Remaining Time<span class="star" style="color:red">*</span></label>
+		<div class="col-sm-2">
+            <input type="time" class="form-control"  name="remainingtime" id="remainingtime" placeholder="Eg: 1hr" required>
+    </div>
+    <div class="col-sm-1"></div>
+		<label for="estimatedtime" class="col-sm-3">Estimated Time<span class="star" style="color:red">*</span></label>
+		<div class="col-sm-2">
+			<input type="time" class="form-control" name="estimatedtime" id="estimatedtime" placeholder="Eg: 1hr" required>
 		</div>
     </div>
-    <!-- <div class="form-group row">
-		
-    </div> -->
     <div class="form-group row">
 		<label for="comments" class="col-sm-4">Comments</label>
 		<div class="col-sm-7">
@@ -107,28 +109,22 @@ h2
         </div>
     </div>
 	<div class="form-group row">
-		<label for="is_subticket" class="col-sm-4">Sub Ticket<span class="star" style="color:red">*</span></label>
+		<label for="is_subticket" class="col-sm-4">Is it Sub Ticket ?<span class="star" style="color:red">*</span></label>
 		<div class="col-sm-7">
 			<input type="radio" id="r1" value="yes" class="radio" name="is_subticket" required>Yes
 			<input type="radio" id="r2" value="no" class="radio"  name="is_subticket">No
 		</div>
     </div>
     <div id="subdiv">
-        <div class="form-group row">
-            <label for="no_ofsubtickets" class="col-sm-4">Number of Sub Tickets<span class="star" style="color:red">*</span></label>
-            <div class="col-sm-7">
-                <input type="number" min="1" id="no_ofsubtickets" name="no_ofsubtickets" required>
-            </div>
-		</div>
 		<div class="form-group row">
-            <label for="subticketno" class="col-sm-4">Enter the Sub Ticket Numbers<span class="star" style="color:red">*</span></label>
+            <label for="mainticketno" class="col-sm-4">Enter Main Ticket Number<span class="star" style="color:red">*</span></label>
             <div class="col-sm-7">
-                <input type="text" id="subticketno" name="subticketno" required>
+                <input type="text" id="mainticketno" name="mainticketno" required>
             </div>
         </div>
-    </div>
+</div>
     <div class="form-group row">
-		<label for="istesting" class="col-sm-4">Went for Testing<span class="star" style="color:red">*</span></label>
+		<label for="istesting" class="col-sm-4">Went for Testing ?<span class="star" style="color:red">*</span></label>
 		<div class="col-sm-7">
 			<input type="radio" id="r3" value="yes" class="radio" name="istesting" required>Yes
 			<input type="radio" id="r4" value="no" class="radio"  name="istesting">No
@@ -151,7 +147,6 @@ h2
           </div> 
             </div>
         </div>
-  
 </form>
   </div>
 </div>
@@ -187,8 +182,7 @@ $('input[name=istesting]').on("click",  function(){
           var completepercentage=$('#completepercentage').val();
           var comments=$('#comments').val();
           var is_subticket=$('input[name=is_subticket]:checked').val();
-          var no_ofsubtickets=$('#no_ofsubtickets').val();
-          var subticketno=$('#subticketno').val();
+          var mainticketno=$('#mainticketno').val();
           var istesting=$('input[name=istesting]:checked').val();
           var iteration_no=$('#iteration_no').val();
 
@@ -210,8 +204,7 @@ $('input[name=istesting]').on("click",  function(){
                 completepercentage: remainingtime,
                 comments:comments,
                 is_subticket: is_subticket,
-                no_ofsubtickets: no_ofsubtickets,
-                subticketno: subticketno,
+                mainticketno: mainticketno,
                 istesting: istesting,
                 iteration_no: iteration_no
 
