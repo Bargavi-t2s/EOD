@@ -135,9 +135,9 @@ h2
             </div>
             <div id="subdiv">
               <div class="form-group row">
-                    <label for="mainticketno" class="col-sm-4">Main Ticket Number<span class="star" style="color:red">*</span></label>
+                    <label for="mainticketno" class="col-sm-4">Main Ticket Number</label>
                     <div class="col-sm-7">
-                        <input type="text" id="mainticketno" name="main_ticket_no" required>
+                        <input type="text" id="mainticketno" name="main_ticket_no">
                     </div>
                 </div>
         </div>
@@ -150,9 +150,9 @@ h2
            </div>
            <div id="iterationdiv">
               <div class="form-group row">
-                 <label for="iteration_no" class="col-sm-4">Iteration Number<span class="star" style="color:red">*</span></label>
+                 <label for="iteration_no" class="col-sm-4">Iteration Number</label>
                  <div class="col-sm-7">
-                    <input type="number" min='1' id="iteration_no" name="iteration_no" required>
+                    <input type="number" min='1' id="iteration_no" name="iteration_no">
                  </div>
               </div>
            </div>
@@ -160,7 +160,7 @@ h2
                     <div for="" class="col-sm-4"></div>
                     <div class="col-sm-7">
                          <div class="buttons">
-                          <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
+                          <button type="button" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
                           <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
                           <button type="button" name="addmore" id="add_more" class="btn btn-warning">Add More</button>
                   </div> 
@@ -207,7 +207,6 @@ h2
                  var istesting = [];
                  var iteration_no = [];
              $('#add_more').click(function(e){
-         
                ticketnumber.push($('#ticketnumber').val());
                description.push($('#description').val());
                status.push($('#status').val());
@@ -226,7 +225,6 @@ h2
              });
          
              $('#submit').click(function(e) {
-         
                  // e.preventDefault();
          
                ticketnumber.push($('#ticketnumber').val());
