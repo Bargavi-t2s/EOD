@@ -71,7 +71,7 @@ h2
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <h4 id="error_msg"></h4>
           </div>
-          <form action="/" name="eodform" id="eodform" method="POST" id="details">
+          <form action="" name="eodform" id="eodform" method="POST">
             <h2 class="text-center mb-5">EOD</h2>
             <div id="formcontent">
            <div class="form-group row">
@@ -137,7 +137,7 @@ h2
               <div class="form-group row">
                     <label for="mainticketno" class="col-sm-4">Main Ticket Number</label>
                     <div class="col-sm-7">
-                        <input type="text" id="mainticketno" name="main_ticket_no">
+                        <input type="text" id="main_ticket_no" name="main_ticket_no">
                     </div>
                 </div>
         </div>
@@ -160,7 +160,7 @@ h2
                     <div for="" class="col-sm-4"></div>
                     <div class="col-sm-7">
                          <div class="buttons">
-                          <button type="button" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
+                          <button type="button" name="submit" id="submit" class="btn btn-success mr-2">Submit</button>
                           <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
                           <button type="button" name="addmore" id="add_more" class="btn btn-warning">Add More</button>
                   </div> 
@@ -220,12 +220,13 @@ h2
                main_ticket_no.push($('#main_ticket_no').val());
                istesting.push($('input[name=istesting]:checked').val());
                iteration_no.push($('#iteration_no').val());
+               
          
                $("#eodform").trigger("reset");
              });
          
              $('#submit').click(function(e) {
-                 // e.preventDefault();
+                 //e.preventDefault();
          
                ticketnumber.push($('#ticketnumber').val());
                description.push($('#description').val());
@@ -240,6 +241,7 @@ h2
                main_ticket_no.push($('#main_ticket_no').val());
                istesting.push($('input[name=istesting]:checked').val());
                iteration_no.push($('#iteration_no').val());
+            
                  $.ajax({
          
                      type: "POST",
@@ -263,6 +265,7 @@ h2
                      },
                      cache: false,
                      success: function(response) {
+                      //console.log(response);
                        $("#eodform").trigger("reset");
                          if (response.status === "success") {
                              if(response.error_msg) {
