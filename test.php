@@ -61,7 +61,7 @@ h2
       </style>
    </head>
    <body>
-      <div class="container col-sm-6 mt-4 p-0 border border-dark">
+      <div class="container mt-4 p-0 border border-dark">
          <div class="jumbotron m-1 py-1">
           <div id="success_div" class="alert alert-success alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
