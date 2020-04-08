@@ -10,148 +10,166 @@
       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
       <title>T2S-EOD</title>
       <style>
-         h2 {
-         padding-bottom: 0.5em;
-         }
-         .btn-outline-danger {
-         position: relative;
-         left: 7em;
-         }
-         .btn-outline-success {
-         position: relative;
-         left: 5em;
-         }
-         #r2 {
-         margin-left: 1em;
-         }
-         #r4 {
-         margin-left: 1em;
-         }
-         label {
-         font-size: 1.3em;
-         }
-         .star{
-         color:red;
-         }
-         .buttons {
-         margin:auto;
-         }
-         .radio {
-         margin-top: 0.6em;
-         }
+         <title>T2S-EOD</title>
+      <style>
+h2
+  {
+    padding-bottom: 0.5em;
+
+  }
+
+  #r2
+  {
+    margin-left: 1em;
+  }
+
+  label
+  {
+    font-size: 1.3em;
+  }
+
+  .radio
+  {
+    margin-top: 0.6em;
+  }
+
+  #subdiv
+  {
+    display:none;
+  }
+
+  #iterationdiv
+  {
+    display:none;
+  }
+
+  #alertdiv
+  {
+    display:none;
+  }
+
+  #error_div
+  {
+   display:none;
+  }
+
+  #success_div
+  {
+   display:none;
+  }
+
       </style>
    </head>
-   <body style="align-content:center;">
-      <div class="container">
-         <div class="jumbotron">
-            <form action="" name="eodform" id="eodform" method="POST" id="details">
-               <h2>EOD</h2>
-               <div id="success_div" class="alert alert-success alert-dismissible">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <h4 id="success_msg"></h4>
+   <body>1
+      <div class="container col-sm-4 mt-4 p-0 border border-dark">
+         <div class="jumbotron m-1 py-1">
+          <div id="success_div" class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <h4 id="success_msg"></h4>
+          </div>
+          <div id="error_div" class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <h4 id="error_msg"></h4>
+          </div>
+          <form action="/" name="eodform" id="eodform" method="POST" id="details">
+            <h2 class="text-center mb-5">EOD</h2>
+            <div id="formcontent">
+           <div class="form-group row">
+              <label for="ticketnumber" class="col-sm-4">Ticket MS-<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-7">
+                 <input type="text" class="form-control" name="tickenumber" id="ticketnumber" pattern="([0-9]+)" title="Only numbers are accepeted" placeholder="Ticket Number" autofocus required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="desc" class="col-sm-4">Description</label>
+              <div class="col-sm-7">
+                 <textarea class="form-control" cols="15" rows="6" name="desc" id="desc" placeholder="Decription"></textarea>
+                </div>
+            </div>
+           <div class="form-group row">
+              <label for="status" class="col-sm-4">Status<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-7">
+                 <input type="text" class="form-control" name="status" id="status" placeholder="Eg: Completed" required>
+              </div>
+           </div>
+           <div class="form-group row">
+          <label for="completepercentage" class="col-sm-4">Work Completed<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-7">
+                    <input type="text" class="form-control" name="completepercentage" id="completepercentage" placeholder="Eg: 100%" required>
+              </div>
+           </div>
+            <div class="form-group row">
+              <label for="login" class="col-sm-3">Login Time<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-2">
+                    <input type="time" class="form-control" name="login" id="login" placeholder="Eg: 10:00" required>
+            </div>
+            <div class="col-sm-1"></div>
+              <label for="logout" class="col-sm-3">Logout Time<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-2">
+                    <input type="time" class="form-control" name="logout" id="logout" placeholder="Eg: 19:00" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="remainingtime" class="col-sm-3">Remaining Time<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-2">
+                    <input type="time" class="form-control"  name="remainingtime" id="remainingtime" placeholder="Eg: 1hr" required>
+            </div>
+            <div class="col-sm-1"></div>
+              <label for="estimatedtime" class="col-sm-3">Estimated Time<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-2">
+                 <input type="time" class="form-control" name="estimatedtime" id="estimatedtime" placeholder="Eg: 1hr" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="comments" class="col-sm-4">Comments</label>
+              <div class="col-sm-7">
+                 <textarea class="form-control" cols="10" rows="5" name="comments" id="comments" placeholder="Eg: Local & staging setup completed"></textarea>
+                </div>
+            </div>
+           <div class="form-group row">
+              <label for="is_subticket" class="col-sm-4">Is it Sub Ticket ?<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-7">
+                 <input type="radio" id="r1" value="yes" class="radio" name="is_subticket" required>Yes
+                 <input type="radio" id="r2" value="no" class="radio"  name="is_subticket">No
+              </div>
+            </div>
+            <div id="subdiv">
+              <div class="form-group row">
+                    <label for="mainticketno" class="col-sm-4">Main Ticket Number<span class="star" style="color:red">*</span></label>
+                    <div class="col-sm-7">
+                        <input type="text" id="mainticketno" name="mainticketno" required>
+                    </div>
+                </div>
+        </div>
+            <div class="form-group row">
+              <label for="istesting" class="col-sm-4">Went for Testing ?<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-7">
+                 <input type="radio" id="r3" value="yes" class="radio" name="istesting" required>Yes
+                 <input type="radio" id="r4" value="no" class="radio"  name="istesting">No
+              </div>
+           </div>
+           <div id="iterationdiv">
+              <div class="form-group row">
+                 <label for="iteration_no" class="col-sm-4">Iteration Number<span class="star" style="color:red">*</span></label>
+                 <div class="col-sm-7">
+                    <input type="number" min='1' id="iteration_no" name="iteration_no" required>
+                 </div>
+              </div>
+           </div>
+            <div class="form-group row">
+                    <div for="" class="col-sm-4"></div>
+                    <div class="col-sm-7">
+                         <div class="buttons">
+                          <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
+                          <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
+                          <button type="button" name="addmore" id="addmore" class="btn btn-warning">Add More</button>
+                  </div> 
+                    </div>
+                </div>
                </div>
-               <div id="error_div" class="alert alert-danger alert-dismissible">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <h4 id="error_msg"></h4>
-               </div>
-               <div class="row">
-                  <div class="col-sm-6">
-                     <div class="form-group row">
-                        <label for="ticketnumber" class="col-sm-6">Ticket Number<span class="star">*</span></label>
-                        <div class="col-sm-6">
-                           <input type="number" class="form-control" name="ticketnumber" id="ticketnumber" placeholder="Ticket Number" autofocus required>
-                        </div>
-                     </div>
-                     <div class="form-group row">
-                        <label for="desc" class="col-sm-6">Description</label>
-                        <div class="col-sm-6">
-                           <textarea class="form-control" cols="10" rows="5" name="description" id="description" placeholder="Decription"></textarea>
-                        </div>
-                     </div>
-                     <div class="form-group row">
-                        <label for="status" class="col-sm-6">Status<span class="star">*</span></label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control" name="status" id="status" placeholder="Eg: Completed" required>
-                        </div>
-                     </div>
-                     <div class="form-group row">
-                        <label for="comments" class="col-sm-6">Comments</label>
-                        <div class="col-sm-6">
-                           <textarea class="form-control" cols="10" rows="5" name="comments" id="comments" placeholder="Eg: Local & staging setup completed"></textarea>
-                        </div>
-                     </div>
-                     <div class="form-group row">
-                        <label for="istesting" class="col-sm-6">Went for Testing<span class="star">*</span></label>
-                        <div class="col-sm-6">
-                           <input type="radio" id="r3" value="yes" class="radio" name="istesting" required>Yes
-                           <input type="radio" id="r4" value="no" class="radio" name="istesting">No
-                        </div>
-                     </div>
-                     <div id="iterationdiv" class="form-group row">
-                        <label for="iteration_no" class="col-sm-6">Iteration Number<span class="star">*</span></label>
-                        <div class="col-sm-6">
-                           <input class="form-control col-sm-6" type="number" id="iteration_no" name="iteration_no">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-am-6">
-                     <div class="form-group row">
-                        <label for="estimatedtime" class="col-sm-6">Estimated Time<span class="star">*</span></label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control col-sm-7" name="estimatedtime" id="estimatedtime" placeholder="Eg: 1hr" required>
-                        </div>
-                     </div>
-                     <div class="form-group row">
-                        <label for="login" class="col-sm-6">Login Time<span class="star">*</span></label>
-                        <div class="col-sm-6">
-                           <input type="time" class="form-control col-sm-7" name="login_time" id="login_time" placeholder="Eg: 10:00 " required>
-                        </div>
-                     </div>
-                     <div class="form-group row ">
-                        <label for="logout " class="col-sm-6 ">Logout Time<span class="star">*</span></label>
-                        <div class="col-sm-6 ">
-                           <input type="time" class="form-control col-sm-7" name="logout_time" id="logout_time" placeholder="Eg: 19:00" required>
-                        </div>
-                     </div>
-                     <div class="form-group row">
-                        <label for="remainingtime" class="col-sm-6">Remaining Time<span class="star">*</span></label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control col-sm-7 " name="remainingtime" id="remainingtime" placeholder="Eg: 1hr " required>
-                        </div>
-                     </div>
-                     <div class="form-group row ">
-                        <label for="completepercentage" class="col-sm-6 ">Work Completed<span class="star">*</span></label>
-                        <div class="col-sm-6 ">
-                           <input type="text " class="form-control col-sm-7" name="completepercentage" id="completepercentage" placeholder="Eg: 100%" required>
-                        </div>
-                     </div>
-                     <div class="form-group row">
-                        <label for="is_subticket" class="col-sm-6">Sub Ticket<span class="star">*</span></label>
-                        <div class="col-sm-6">
-                           <input type="radio" id="r1" value="yes" class="radio" name="is_subticket" required>Yes
-                           <input type="radio" id="r2" value="no" class="radio" name="is_subticket">No
-                        </div>
-                     </div>
-                     <div id="subdiv">
-                        <div class="form-group row">
-                           <label for="main_ticket_no" class="col-sm-6">Main Ticknet no:<span class="star">*</span></label>
-                           <div class="col-sm-6">
-                              <input class="form-control col-sm-7" type="number" id="main_ticket_no" name="main_ticket_no">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="form-group row" id="button">
-                  <div class="buttons" style="text-align: center;">
-                     <button type="button" name="add_more" id="add_more" class="btn btn-primary">Add more</button>
-                     <button type="submit" name="submit" id="submit" class="btn btn-success">Submit</button>
-                     <button type="reset" name="clear" id="clear" class="btn btn-danger">Clear</button>
-                  </div>
-               </div>
-            </form>
-         </div>
-      </div>
+               </form>
+          </div>
+        </div>
       <script type="text/javascript">
          var output = "";
          $(document).ready(function() {
@@ -209,7 +227,7 @@
          
              $('#submit').click(function(e) {
          
-                 e.preventDefault();
+                 // e.preventDefault();
          
                ticketnumber.push($('#ticketnumber').val());
                description.push($('#description').val());
