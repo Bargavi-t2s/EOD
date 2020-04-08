@@ -23,6 +23,11 @@ h2
     margin-left: 1em;
   }
 
+  #r4
+  {
+    margin-left: 1em;
+  }
+
   label
   {
     font-size: 1.3em;
@@ -57,7 +62,7 @@ h2
   {
    display:none;
   }
-  
+
   </style>
    </head>
    <body>
@@ -138,7 +143,7 @@ h2
               <div class="form-group row">
                     <label for="main_ticket_no" class="col-sm-4">Main Ticket Number</label>
                     <div class="col-sm-7">
-                        <input type="text" id="main_ticket_no" name="main_ticket_no">
+                        <input class="form-control" type="text" id="main_ticket_no" name="main_ticket_no">
                     </div>
                 </div>
         </div>
@@ -153,7 +158,7 @@ h2
               <div class="form-group row">
                  <label for="iteration_no" class="col-sm-4">Iteration Number</label>
                  <div class="col-sm-7">
-                    <input type="number" min='1' id="iteration_no" name="iteration_no">
+                    <input type="number" class="form-control" min='1' id="iteration_no" name="iteration_no">
                  </div>
               </div>
            </div>
@@ -161,9 +166,10 @@ h2
                     <div for="" class="col-sm-4"></div>
                     <div class="col-sm-7">
                          <div class="buttons">
+                          <button type="button" name="add_more" id="add_more" class="btn btn-warning mr-2">Add More</button>
                           <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
                           <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
-                          <button name="add_more" id="add_more" class="btn btn-warning">Add More</button>
+                          
                   </div> 
                     </div>
                 </div>
