@@ -166,7 +166,7 @@ h2
                     <div for="" class="col-sm-4"></div>
                     <div class="col-sm-7">
                          <div class="buttons">
-                          <button type="button" name="add_more" id="add_more" class="btn btn-warning mr-2">Add More</button>
+                          <button type="submit" name="add_more" id="add_more" class="btn btn-warning mr-2">Add More</button>
                           <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
                           <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
                           
