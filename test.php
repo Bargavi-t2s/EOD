@@ -174,10 +174,6 @@ h2
          var output = "";
          $(document).ready(function() {
          
-             $('#error_div').delay(0).hide(0);
-             $('#success_div').delay(0).hide(0);
-             $('#subdiv').delay(0).hide(0);
-             $('#iterationdiv').delay(0).hide(0);
              $('input[name=is_subticket]').on("click", function() {
                  if ($('input[name=is_subticket]').index(this) == 0)
                      $('#subdiv').show("fast");
