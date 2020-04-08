@@ -57,8 +57,8 @@ h2
   {
    display:none;
   }
-
-      </style>
+  
+  </style>
    </head>
    <body>
       <div class="container mt-4 p-0 border border-dark">
@@ -120,6 +120,7 @@ h2
                  <input type="time" class="form-control" name="estimatedtime" id="estimatedtime" placeholder="Eg: 1hr" required>
               </div>
             </div>
+
             <div class="form-group row">
               <label for="comments" class="col-sm-4">Comments</label>
               <div class="col-sm-7">
@@ -160,11 +161,7 @@ h2
                     <div for="" class="col-sm-4"></div>
                     <div class="col-sm-7">
                          <div class="buttons">
-<<<<<<< HEAD
-                          <button type="button" name="submit" id="submit" class="btn btn-success mr-2">Submit</button>
-=======
                           <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
->>>>>>> 686b4fa0a8e9dcd0d3040a92d02ded8a6ef1773e
                           <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
                           <button name="add_more" id="add_more" class="btn btn-warning">Add More</button>
                   </div> 
