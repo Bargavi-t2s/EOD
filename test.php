@@ -81,9 +81,9 @@ h2
               </div>
             </div>
             <div class="form-group row">
-              <label for="desc" class="col-sm-4">Description</label>
+              <label for="description" class="col-sm-4">Description</label>
               <div class="col-sm-7">
-                 <textarea class="form-control" cols="15" rows="6" name="desc" id="desc" placeholder="Decription"></textarea>
+                 <textarea class="form-control" cols="15" rows="6" name="description" id="description" placeholder="Decription"></textarea>
                 </div>
             </div>
            <div class="form-group row">
@@ -99,14 +99,14 @@ h2
               </div>
            </div>
             <div class="form-group row">
-              <label for="login" class="col-sm-3">Login Time<span class="star" style="color:red">*</span></label>
+              <label for="login_time" class="col-sm-3">Login Time<span class="star" style="color:red">*</span></label>
               <div class="col-sm-2">
-                    <input type="time" class="form-control" name="login" id="login" placeholder="Eg: 10:00" required>
+                    <input type="time" class="form-control" name="login_time" id="login_time" placeholder="Eg: 10:00" required>
             </div>
             <div class="col-sm-1"></div>
-              <label for="logout" class="col-sm-3">Logout Time<span class="star" style="color:red">*</span></label>
+              <label for="logout_time" class="col-sm-3">Logout Time<span class="star" style="color:red">*</span></label>
               <div class="col-sm-2">
-                    <input type="time" class="form-control" name="logout" id="logout" placeholder="Eg: 19:00" required>
+                    <input type="time" class="form-control" name="logout_time" id="logout_time" placeholder="Eg: 19:00" required>
               </div>
             </div>
             <div class="form-group row">
@@ -137,7 +137,7 @@ h2
               <div class="form-group row">
                     <label for="mainticketno" class="col-sm-4">Main Ticket Number<span class="star" style="color:red">*</span></label>
                     <div class="col-sm-7">
-                        <input type="text" id="mainticketno" name="mainticketno" required>
+                        <input type="text" id="mainticketno" name="main_ticket_no" required>
                     </div>
                 </div>
         </div>
@@ -162,7 +162,7 @@ h2
                          <div class="buttons">
                           <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
                           <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
-                          <button type="button" name="addmore" id="addmore" class="btn btn-warning">Add More</button>
+                          <button type="button" name="addmore" id="add_more" class="btn btn-warning">Add More</button>
                   </div> 
                     </div>
                 </div>
@@ -283,10 +283,6 @@ h2
                          setTimeout(location.reload.bind(location), 1000);
                      }
                  });
-             });
-         
-             $("#clear").click(function() {
-                 $("#eodform").trigger("reset");
              });
          });
       </script>
