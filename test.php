@@ -77,13 +77,13 @@ h2
            <div class="form-group row">
               <label for="ticketnumber" class="col-sm-4">Ticket MS-<span class="star" style="color:red">*</span></label>
               <div class="col-sm-7">
-                 <input type="text" class="form-control" name="tickenumber" id="ticketnumber" pattern="([0-9]+)" title="Only numbers are accepeted" placeholder="Ticket Number" autofocus required>
+                 <input type="text" class="form-control" name="ticketnumber" id="ticketnumber" pattern="([0-9]+)" title="Only numbers are accepeted" placeholder="Ticket Number" autofocus required>
               </div>
             </div>
             <div class="form-group row">
               <label for="description" class="col-sm-4">Description</label>
               <div class="col-sm-7">
-                 <textarea class="form-control" cols="15" rows="6" name="description" id="description" placeholder="Decription"></textarea>
+                 <textarea class="form-control" cols="15" rows="6" name="description" id="description" placeholder="Description"></textarea>
                 </div>
             </div>
            <div class="form-group row">
@@ -135,9 +135,9 @@ h2
             </div>
             <div id="subdiv">
               <div class="form-group row">
-                    <label for="mainticketno" class="col-sm-4">Main Ticket Number</label>
+                    <label for="main_ticket_no" class="col-sm-4">Main Ticket Number</label>
                     <div class="col-sm-7">
-                        <input type="text" id="mainticketno" name="main_ticket_no">
+                        <input type="text" id="main_ticket_no" name="main_ticket_no">
                     </div>
                 </div>
         </div>
@@ -160,9 +160,9 @@ h2
                     <div for="" class="col-sm-4"></div>
                     <div class="col-sm-7">
                          <div class="buttons">
-                          <button type="button" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
+                          <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
                           <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
-                          <button type="button" name="addmore" id="add_more" class="btn btn-warning">Add More</button>
+                          <button name="add_more" id="add_more" class="btn btn-warning">Add More</button>
                   </div> 
                     </div>
                 </div>
