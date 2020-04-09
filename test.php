@@ -7,11 +7,12 @@
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <title>T2S-EOD</title>
       <style>
          <title>T2S-EOD</title>
-      <style>
+<style>
 h2
   {
     padding-bottom: 0.5em;
@@ -19,6 +20,11 @@ h2
   }
 
   #r2
+  {
+    margin-left: 1em;
+  }
+
+  #r4
   {
     margin-left: 1em;
   }
@@ -58,7 +64,7 @@ h2
    display:none;
   }
 
-      </style>
+</style>
    </head>
    <body>
       <div class="container mt-4 p-0 border border-dark">
@@ -71,9 +77,12 @@ h2
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <h4 id="error_msg"></h4>
           </div>
-          <form action="/" name="eodform" id="eodform" method="POST" id="details">
+<<<<<<< HEAD
+          <form name="eodform" id="eodform" method="POST" id="details">
+=======
+          <form action="" name="eodform" id="eodform" method="POST">
+>>>>>>> 7fe195238141026bdd296d674ec5f5ea33996b5f
             <h2 class="text-center mb-5">EOD</h2>
-            <div id="formcontent">
            <div class="form-group row">
               <label for="ticketnumber" class="col-sm-4">Ticket MS-<span class="star" style="color:red">*</span></label>
               <div class="col-sm-7">
@@ -120,6 +129,7 @@ h2
                  <input type="time" class="form-control" name="estimatedtime" id="estimatedtime" placeholder="Eg: 1hr" required>
               </div>
             </div>
+
             <div class="form-group row">
               <label for="comments" class="col-sm-4">Comments</label>
               <div class="col-sm-7">
@@ -137,7 +147,7 @@ h2
               <div class="form-group row">
                     <label for="main_ticket_no" class="col-sm-4">Main Ticket Number</label>
                     <div class="col-sm-7">
-                        <input type="text" id="main_ticket_no" name="main_ticket_no">
+                        <input class="form-control" type="text" id="main_ticket_no" name="main_ticket_no">
                     </div>
                 </div>
         </div>
@@ -152,7 +162,7 @@ h2
               <div class="form-group row">
                  <label for="iteration_no" class="col-sm-4">Iteration Number</label>
                  <div class="col-sm-7">
-                    <input type="number" min='1' id="iteration_no" name="iteration_no">
+                    <input type="number" class="form-control" min='1' id="iteration_no" name="iteration_no">
                  </div>
               </div>
            </div>
@@ -160,13 +170,13 @@ h2
                     <div for="" class="col-sm-4"></div>
                     <div class="col-sm-7">
                          <div class="buttons">
+                          <button type="submit" name="add_more" id="add_more" class="btn btn-warning mr-2">Add More</button>
                           <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
                           <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
-                          <button name="add_more" id="add_more" class="btn btn-warning">Add More</button>
+                          
                   </div> 
                     </div>
                 </div>
-               </div>
                </form>
           </div>
         </div>
@@ -216,12 +226,13 @@ h2
                main_ticket_no.push($('#main_ticket_no').val());
                istesting.push($('input[name=istesting]:checked').val());
                iteration_no.push($('#iteration_no').val());
+               
          
                $("#eodform").trigger("reset");
              });
          
              $('#submit').click(function(e) {
-                 // e.preventDefault();
+                 //e.preventDefault();
          
                ticketnumber.push($('#ticketnumber').val());
                description.push($('#description').val());
@@ -236,6 +247,7 @@ h2
                main_ticket_no.push($('#main_ticket_no').val());
                istesting.push($('input[name=istesting]:checked').val());
                iteration_no.push($('#iteration_no').val());
+            
                  $.ajax({
          
                      type: "POST",
@@ -259,6 +271,7 @@ h2
                      },
                      cache: false,
                      success: function(response) {
+                      //console.log(response);
                        $("#eodform").trigger("reset");
                          if (response.status === "success") {
                              if(response.error_msg) {
