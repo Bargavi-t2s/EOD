@@ -63,8 +63,7 @@ h2
   {
    display:none;
   }
-
-</style>
+  </style>
    </head>
    <body>
       <div class="container mt-4 p-0 border border-dark">
@@ -77,11 +76,7 @@ h2
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <h4 id="error_msg"></h4>
           </div>
-<<<<<<< HEAD
           <form name="eodform" id="eodform" method="POST" id="details">
-=======
-          <form action="" name="eodform" id="eodform" method="POST">
->>>>>>> 7fe195238141026bdd296d674ec5f5ea33996b5f
             <h2 class="text-center mb-5">EOD</h2>
            <div class="form-group row">
               <label for="ticketnumber" class="col-sm-4">Ticket MS-<span class="star" style="color:red">*</span></label>
