@@ -11,8 +11,6 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <title>T2S-EOD</title>
       <style>
-         <title>T2S-EOD</title>
-      <style>
 h2
   {
     padding-bottom: 0.5em;
@@ -20,6 +18,11 @@ h2
   }
 
   #r2
+  {
+    margin-left: 1em;
+  }
+
+  #r4
   {
     margin-left: 1em;
   }
@@ -57,6 +60,12 @@ h2
   #success_div
   {
    display:none;
+  }
+
+  .buttons
+  {
+    position:relative;
+    left:25rem;
   }
 
       </style>
@@ -137,7 +146,7 @@ h2
               <div class="form-group row">
                     <label for="main_ticket_no" class="col-sm-4">Main Ticket Number</label>
                     <div class="col-sm-7">
-                        <input type="text" id="main_ticket_no" name="main_ticket_no">
+                        <input type="text" class="form-control" id="main_ticket_no" name="main_ticket_no">
                     </div>
                 </div>
         </div>
@@ -151,22 +160,17 @@ h2
            <div id="iterationdiv">
               <div class="form-group row">
                  <label for="iteration_no" class="col-sm-4">Iteration Number</label>
-                 <div class="col-sm-7">
-                    <input type="number" min='1' id="iteration_no" name="iteration_no">
+                 <div class="col-sm-2">
+                    <input type="number" class="form-control" min='1' id="iteration_no" name="iteration_no">
                  </div>
               </div>
            </div>
-            <div class="form-group row">
-                    <div for="" class="col-sm-4"></div>
-                    <div class="col-sm-7">
-                         <div class="buttons">
-                          <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
-                          <button type="reset" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
-                          <button name="add_more" id="add_more" class="btn btn-warning">Add More</button>
-                  </div> 
-                    </div>
-                </div>
                </form>
+               <div class="buttons">
+                <button type="button" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
+                <button type="button" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button>
+                <button type="button" name="add_more" id="add_more" class="btn btn-warning">Add More</button>
+               </div>
           </div>
         </div>
       <script type="text/javascript">
@@ -217,6 +221,7 @@ h2
                iteration_no.push($('#iteration_no').val());
          
                $("#eodform").trigger("reset");
+               console.log("It is not reloading");
              });
          
              $('#submit').click(function(e) {
@@ -259,23 +264,36 @@ h2
                      cache: false,
                      success: function(response) {
                        $("#eodform").trigger("reset");
-                         if (response.status === "success") {
+                       console.log(response.code);
+                         if (response.code == "200") {
+                          console.log("Its just after entering success");
                              if(response.error_msg) {
+                            console.log("Its the error message in success");
                              $('#error_msg').html(response.error_msg);
-                             $('#error_div').show().delay(4000).fadeOut();
+                             $('#error_div').show("fast");
+                             $('#error_div').delay(4000).hide(0);
                              }
                              else{
+                              console.log("Its the success message in success");
                              $("#success_msg").html(response.message);
-                             $('#success_div').show().delay(4000).fadeOut();
+                             $('#success_div').show("fast");
+                             $('#success_div').delay(4000).hide(0);
                            }
                          }
-                         if (response.status === "error") {
+                         if (response.code == "404") {
+                          console.log("Its the error");
                              $('#error_msg').html(response.message);
-                             $('#error_div').show().delay(4000).fadeOut();
+                             $('#error_div').show("fast");
+                             $('#error_div').delay(4000).hide(0);
                          }
                          setTimeout(location.reload.bind(location), 1000);
+                         console.log($('#error_msg').val());
                      }
                  });
+             });
+
+             $("#reset").on("click", function(){
+              $("#eodform").trigger("reset");
              });
          });
       </script>
