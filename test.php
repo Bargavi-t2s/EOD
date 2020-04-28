@@ -84,20 +84,20 @@ h2
           <form class="eodform" id="eodform1" method="POST">
             <h2 class="text-center mb-5">EOD</h2>
            <div class="form-group row">
-              <label for="ticketnumber" class="col-sm-4">Ticket MS-<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-7">
+              <label for="ticketnumber" class="col-sm-6">Ticket MS-<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-6">
                  <input type="text" class="form-control ticketnumber" name="ticketnumber[]" id="ticketnumber1" pattern="([0-9]+)" title="Only numbers are accepeted" onblur="get_estimation_function($(this).val())" placeholder="Ticket Number" autofocus required>
               </div>
             </div>
             <div class="form-group row">
-              <label for="description" class="col-sm-4">Description</label>
-              <div class="col-sm-7">
+              <label for="description" class="col-sm-6">Description</label>
+              <div class="col-sm-6">
                  <textarea class="form-control" cols="15" rows="6" name="description[]" id="description1" placeholder="Description"></textarea>
                 </div>
             </div>
            <div class="form-group row">
-              <label for="status" class="col-sm-4">Status<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-7">
+              <label for="status" class="col-sm-6">Status<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-6">
                 <select class="form-control" id="status1" name="status[]">
                   <option value="initiated">Initiated</option>
                   <option value="started">Started</option>
@@ -112,67 +112,67 @@ h2
            </div>
            
             <div class="form-group row">
-              <label for="login_time" class="col-sm-4">Login Time<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-2">
-                    <input type="text" id="login_time1" class="login_time" name="login_time[]" >
+              <label for="login_time" class="col-sm-6">Login Time<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-4">
+                    <input type="text" id="login_time1" class="login_time form-control" name="login_time[]" >
               </div>
             </div>
             <div class="form-group row">
-              <label for="logout_time" class="col-sm-4">Logout Time<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-2">
+              <label for="logout_time" class="col-sm-6">Logout Time<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-4">
                     <input type="text" id="logout_time1" class="logout_time" name="logout_time[]" >
               </div>
             </div>
             <div class="form-group row">
-              <label for="estimatedtime" class="col-sm-4">Estimated Time<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-7">
+              <label for="estimatedtime" class="col-sm-6">Estimated Time<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-4">
                  <input type="text" class="form-control" name="estimatedtime[]" id="estimatedtime1" onblur="get_remainingtime_function($(this).val())" placeholder="Eg: 1hr" required>
               </div>
             </div>
               <div class="form-group row">
-              <label for="remainingtime" class="col-sm-4">Remaining Time<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-2">
+              <label for="remainingtime" class="col-sm-6">Remaining Time<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-4">
                     <select class="form-control" name="remainingtime[]" id="remainingtime1"></select>
               </div>
             </div>
             <div class="form-group row">
-          <label for="completepercentage" class="col-sm-4">Work Completed<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-2">
+          <label for="completepercentage" class="col-sm-6">Work Completed<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-4">
                     <select class="form-control" name="completepercentage[]" id="completepercentage1"></select>
               </div>
            </div>
             <div class="form-group row">
-              <label for="comments" class="col-sm-4">Comments</label>
-              <div class="col-sm-7">
+              <label for="comments" class="col-sm-6">Comments</label>
+              <div class="col-sm-6">
                  <textarea class="form-control" cols="10" rows="5" name="comments[]" id="comments1" placeholder="Eg: Local & staging setup completed"></textarea>
                 </div>
             </div>
            <div class="form-group row">
-              <label for="is_subticket" class="col-sm-4">Is it Sub Ticket ?<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-7">
+              <label for="is_subticket" class="col-sm-6">Is it Sub Ticket ?<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-6">
                  <input type="radio" value="yes" class="is_subticket_radio radio" name="is_subticket" required>Yes
                  <input type="radio" value="no" class="is_subticket_radio radio radio-right"  name="is_subticket">No
               </div>
             </div>
             <div class="subdiv" id="subdiv1">
               <div class="form-group row">
-                    <label for="main_ticket_no" class="col-sm-4">Main Ticket Number</label>
-                    <div class="col-sm-7">
+                    <label for="main_ticket_no" class="col-sm-6">Main Ticket Number</label>
+                    <div class="col-sm-4">
                         <input type="text" class="form-control" id="main_ticket_no1" name="main_ticket_no[]">
                     </div>
                 </div>
         </div>
             <div class="form-group row">
-              <label for="istesting" class="col-sm-4">Went for Testing ?<span class="star" style="color:red">*</span></label>
-              <div class="col-sm-7">
+              <label for="istesting" class="col-sm-6">Went for Testing ?<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-6">
                  <input type="radio" value="yes" class="testing_radio radio" name="istesting" required>Yes
                  <input type="radio" value="no" class="testing_radio radio radio-right"  name="istesting">No
               </div>
            </div>
            <div id="iterationdiv1" class="iterationdiv">
               <div class="form-group row">
-                 <label for="iteration_no" class="col-sm-4">Iteration Number</label>
-                 <div class="col-sm-2">
+                 <label for="iteration_no" class="col-sm-6">Iteration Number</label>
+                 <div class="col-sm-4">
                     <input type="number" class="form-control" min='1' id="iteration_no" name="iteration_no[]">
                  </div>
               </div>
@@ -194,6 +194,7 @@ h2
       </div>
       <script type="text/javascript">
          function get_estimation_function(ticketnumber) {
+                    console.log(ticketnumber);
                     var index=$("input[name='ticketnumber[]']").length;
                     $.ajax({
                     type: "POST",
@@ -203,7 +204,8 @@ h2
                         ticketnumber: ticketnumber
                     },
                     cache: false,
-                    success: function(response) {                        
+                    success: function(response) { 
+                        console.log(response);                       
                         var idname = ["completepercentage1","estimatedtime1","remainingtime1"];
                         for (i=0;i<idname.length;i++)
                         {
@@ -294,23 +296,23 @@ h2
               }
              });
 
-             $('#add_more').click(function(e){
-              add_count++;
-                form_time=form_time+1;
-                 var val="eodform";
-                 val+=form_time;
-                $.ajax({
-                    type: "POST",
-                    url: "addform.php",
-                    cache: false,
-                    data:{
-                        form_time:form_time
-                    },
-                    success: function(response) {
-                        $('#form').append(response);                        
-                    }
-                });         
-            });
+            //  $('#add_more').click(function(e){
+            //   add_count++;
+            //     form_time=form_time+1;
+            //      var val="eodform";
+            //      val+=form_time;
+            //     $.ajax({
+            //         type: "POST",
+            //         url: "addform.php",
+            //         cache: false,
+            //         data:{
+            //             form_time:form_time
+            //         },
+            //         success: function(response) {
+            //             $('#form').append(response);                        
+            //         }
+            //     });         
+            // });
 
              // $('input[name=is_subticket]').on("click", function() {
              //     if ($('input[name=is_subticket]').index(this) == 0)
@@ -388,11 +390,11 @@ h2
         var remainingtime = $("select[name='remainingtime[]']").map(function(){return $(this).val();}).get();
         var completepercentage = $("select[name='completepercentage[]']").map(function(){return $(this).val();}).get();
         var comments = $("textarea[name='comments[]']").map(function(){return $(this).val();}).get();
-        // var is_subticket = $("input[name='is_subticket[]']:checked").map(function(){return $(this).val();}).get();
+         var is_subticket = $("input[name='is_subticket[]']:checked").map(function(){return $(this).val();}).get();
         var is_subticket = $("input[name='is_subticket']:checked").val();
         console.log(is_subticket);
         var main_ticket_no = $("input[name='main_ticket_no[]']").map(function(){return $(this).val();}).get();
-        // var istesting = $("input[name='istesting[]']:checked").map(function(){return $(this).val();}).get();
+         var istesting = $("input[name='istesting[]']:checked").map(function(){return $(this).val();}).get();
         var istesting = $("input[name='istesting']:checked").val();
         var iteration_no = $("input[name='iteration_no[]']").map(function(){return $(this).val();}).get();
                  $.ajax({
