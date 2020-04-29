@@ -88,6 +88,7 @@ if ($db) {
         } 
         else {
             echo json_encode(array(
+    'code' => 404,
     'status' => 'error',
     'message'=> 'Database Insertion failure'
          ));
@@ -100,6 +101,7 @@ if ($db) {
 
 if($success === 1){
     echo json_encode(array(
+        'code' => 200,
     'status' => 'success',
     'message'=> 'You have successfully submitted your end of the day report'
          ));
@@ -110,6 +112,7 @@ if($success === 1){
 else 
 {
     echo json_encode(array(
+        'code' => 404,
     'status' => 'error',
     'message'=> 'Database connection failure'
 ));
