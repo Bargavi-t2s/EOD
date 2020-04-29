@@ -10,7 +10,7 @@ if($db)
  {
  	$a=0;
 
-  $sql="SELECT `ticketnumber`,`status`,`remainingtime`,`completepercentage`,`date` from `eodtable` ORDER BY `date` DESC;";
+  $sql="SELECT `ticketnumber`,`status`,`remainingtime`,`completepercentage`,`date` from `eodtable` ORDER BY `date` DESC limit 15;";
 
  	
  $result=mysqli_query($db,$sql);

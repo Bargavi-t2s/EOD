@@ -607,9 +607,12 @@ h2
                              $("#success_msg").html(response.message);
                              //alert(response.message);
                              $("#eodform1").trigger("reset");
+                             $(".subdiv").hide();
+                             $(".iterationdiv").hide();
                              $('#success_div').show("fast");
                              $('#success_div').delay(8000).hide(0);
                              $("tbody").html("");
+                             var val= $("tbody").html();
 
                              appendtable();
                              //setTimeout(location.reload.bind(location), 1000);
