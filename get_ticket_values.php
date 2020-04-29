@@ -15,7 +15,7 @@ if($db)
  {
  	if($ticketnumber)
  	{
- $sql="SELECT `description`, `status`, `estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`comments`,`is_subticket`,`main_ticket_no`,`istesting`,`iteration_no` from `eodtable` WHERE `ticketnumber`= $ticketnumber ;";
+ $sql="SELECT `description`, `status`, `estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`comments`,`is_subticket`,`main_ticket_no`,`istesting`,`iteration_no`,`mark` from `eodtable` WHERE `ticketnumber`= $ticketnumber ;";
  $result=mysqli_query($db,$sql);
  if(mysqli_num_rows($result)>0)
  {
@@ -30,6 +30,7 @@ if($db)
     'logout_time'        => ($i['logout_time']),
     'remainingtime'      => ($i['remainingtime']),
     'completepercentage' => ($i['completepercentage']),
+    'mark'               => ($i['mark']),
     'comments'           => ($i['comments']),
     'is_subticket'       => ($i['is_subticket']),
     'main_ticket_no'     => ($i['main_ticket_no']),

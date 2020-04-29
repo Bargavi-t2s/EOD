@@ -157,14 +157,14 @@ h2
            <div class="form-group row">
               <label for="is_subticket" class="col-sm-6">Is it Sub Ticket ?<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                 <input type="radio" value="yes" id="is_subticket_yes" class="is_subticket_radio radio" name="is_subticket" required>Yes
+                 <input type="radio" value="yes" id="is_subticket_yes"class="is_subticket_radio radio" name="is_subticket" required>Yes
                  <input type="radio" value="no" id="is_subticket_no" class="is_subticket_radio radio radio-right"  name="is_subticket">No
               </div>
             </div>
             <div class="subdiv" id="subdiv1">
               <div class="form-group row">
-                    <label for="main_ticket_no" class="col-sm-4">Main Ticket Number</label>
-                    <div class="col-sm-7">
+                    <label for="main_ticket_no" class="col-sm-6">Main Ticket Number</label>
+                    <div class="col-sm-4">
                         <input type="text" class="form-control" id="main_ticket_no1" name="main_ticket_no[]">
                     </div>
                 </div>
@@ -173,13 +173,13 @@ h2
               <label for="istesting" class="col-sm-6">Went for Testing ?<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
                  <input type="radio" value="yes" id="istesting_yes" class="testing_radio radio" name="istesting" required>Yes
-                 <input type="radio" value="no" id="istesting_no" class="testing_radio radio radio-right"  name="istesting">No
+                 <input type="radio" value="no" id ="istesting_no" class="testing_radio radio radio-right"  name="istesting">No
               </div>
            </div>
            <div id="iterationdiv1" class="iterationdiv">
               <div class="form-group row">
-                 <label for="iteration_no" class="col-sm-4">Iteration Number</label>
-                 <div class="col-sm-2">
+                 <label for="iteration_no" class="col-sm-6">Iteration Number</label>
+                 <div class="col-sm-4">
                     <input type="number" class="form-control" min='1' id="iteration_no1" name="iteration_no[]">
                  </div>
               </div>
@@ -259,7 +259,7 @@ h2
               dataType: "json",
               data: { ticketnumber:ticketnumber},
               success: function (result) {
-                $("#modal-title").html("Ticket No. = "+ticketnumber);
+                $("#modal-title").html("Ticket No. = "+ticketnumber+"<br> The mark = "+result.mark);
                 var sentence = "Description is '"+result.description+"'<br>";
                 sentence+="Status = "+result.status+"<br>";
                 sentence+="Estimated time = "+result.estimatedtime+"<br>";
@@ -311,6 +311,7 @@ h2
               $("#estimatedtime1").val(result.estimatedtime);
               $('#login_time1').val(result.login_time);
               $('#logout_time1').val(result.logout_time);
+              $("#mark1").val(result.mark);
               for(var i = parseInt(result.remainingtime); i>=0; i--)
                 {   var option="";
                     option = '<option value="'+i+'">' +i+ '</option>';
@@ -642,7 +643,9 @@ console.log("Submit is working");
                              else{
                               // console.log("This is inside success success");
                              $("#success_msg").html(response.message);
-                             $("#eodform").trigger("reset");
+                             $("#eodform1").trigger("reset");
+                             $(".subdiv").hide();
+                             $(".iterationdiv").hide();
                              $('#success_div').show("fast");
                              $('#success_div').delay(8000).hide(0);
                               $("tbody").html("");
