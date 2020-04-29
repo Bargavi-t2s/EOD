@@ -59,11 +59,11 @@ h2
    display:none;
   }
 
-  .buttons
+/*  .buttons
   {
     position:relative;
-    left:25rem;
-  }
+    left:15.3rem;
+  }*/
 
       </style>
    </head>
@@ -98,7 +98,8 @@ h2
            <div class="form-group row">
               <label for="status" class="col-sm-6">Status<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                <select class="form-control" id="status1" name="status[]">
+                <select class="form-control status" id="status1" onblur="getmarks()" name="status[]">
+                  <option value="----------SELECT----------">----------SELECT----------</option>
                   <option value="initiated">Initiated</option>
                   <option value="started">Started</option>
                   <option value="middle level">Middle Level</option>
@@ -114,7 +115,7 @@ h2
             <div class="form-group row">
               <label for="login_time" class="col-sm-6">Login Time<span class="star" style="color:red">*</span></label>
               <div class="col-sm-4">
-                    <input type="text" id="login_time1" class="login_time form-control" name="login_time[]" >
+                    <input type="text" id="login_time1" class="login_time" name="login_time[]" >
               </div>
             </div>
             <div class="form-group row">
@@ -141,6 +142,12 @@ h2
                     <select class="form-control" name="completepercentage[]" id="completepercentage1"></select>
               </div>
            </div>
+           <div class="form-group row">
+          <label for="mark" class="col-sm-6">Mark</label>
+              <div class="col-sm-4">
+                    <input type="text" class="form-control" name="mark" id="mark1" required>
+              </div>
+           </div>
             <div class="form-group row">
               <label for="comments" class="col-sm-6">Comments</label>
               <div class="col-sm-6">
@@ -150,14 +157,14 @@ h2
            <div class="form-group row">
               <label for="is_subticket" class="col-sm-6">Is it Sub Ticket ?<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                 <input type="radio" value="yes" class="is_subticket_radio radio" name="is_subticket" required>Yes
-                 <input type="radio" value="no" class="is_subticket_radio radio radio-right"  name="is_subticket">No
+                 <input type="radio" value="yes" id="is_subticket_yes" class="is_subticket_radio radio" name="is_subticket" required>Yes
+                 <input type="radio" value="no" id="is_subticket_no" class="is_subticket_radio radio radio-right"  name="is_subticket">No
               </div>
             </div>
             <div class="subdiv" id="subdiv1">
               <div class="form-group row">
-                    <label for="main_ticket_no" class="col-sm-6">Main Ticket Number</label>
-                    <div class="col-sm-4">
+                    <label for="main_ticket_no" class="col-sm-4">Main Ticket Number</label>
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" id="main_ticket_no1" name="main_ticket_no[]">
                     </div>
                 </div>
@@ -165,36 +172,192 @@ h2
             <div class="form-group row">
               <label for="istesting" class="col-sm-6">Went for Testing ?<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                 <input type="radio" value="yes" class="testing_radio radio" name="istesting" required>Yes
-                 <input type="radio" value="no" class="testing_radio radio radio-right"  name="istesting">No
+                 <input type="radio" value="yes" id="istesting_yes" class="testing_radio radio" name="istesting" required>Yes
+                 <input type="radio" value="no" id="istesting_no" class="testing_radio radio radio-right"  name="istesting">No
               </div>
            </div>
            <div id="iterationdiv1" class="iterationdiv">
               <div class="form-group row">
-                 <label for="iteration_no" class="col-sm-6">Iteration Number</label>
-                 <div class="col-sm-4">
-                    <input type="number" class="form-control" min='1' id="iteration_no" name="iteration_no[]">
+                 <label for="iteration_no" class="col-sm-4">Iteration Number</label>
+                 <div class="col-sm-2">
+                    <input type="number" class="form-control" min='1' id="iteration_no1" name="iteration_no[]">
                  </div>
               </div>
            </div>
-               </form>
-             </div>
-               <div class="buttons">
+           <div class="form-group row">
+            <div class="col-sm-6"></div>
+           <div class="buttons col-sm-6">
                 <button type="button" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
                 <!-- <button type="button" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button> -->
                 <!-- <button type="button" name="add_more" id="add_more" class="btn btn-warning">Add More</button> -->
                </div>
+             </div>
+               </form>
+             </div>
           </div>
         </div>
 
         <!-- This is the table part -->
 
-        <div class="col-sm-8">
+        <div class="container col-sm-7 mt-4 p-0 ml-4 border border-dark">
+          <div class="jumbotron m-1 py-1">
+            <div class="table-responsive">
+               <table class="table table-hover" id ="mytable">
+                  <thead>
+                     <tr>
+                        <th >SI No.</th>
+                        <th>Ticket No.</th>
+                        <th >Status</th>
+                        <th >Remaining Time</th>
+                        <th >Work Completed</th>
+                        <th >Mark</th>
+                        <th> Edit</th>
+                        <th> View </th>
+                     </tr>
+                  </thead>
+                  <tbody id="tablebody">
+                   
+
+
+                  </tbody>
+               </table>
+            </div>
         </div>
       </div>
+    </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="mb">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button style = "align-self: right;" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
       <script type="text/javascript">
+
+        $(document).on('click','.view',function(){
+              //console.log("inside view");
+              var ticketnumber = $(this).closest('tr').find('td:eq(1)').text();
+              $.ajax({
+              type: "POST",
+              url: "get_ticket_values.php",
+              cache: false,
+              dataType: "json",
+              data: { ticketnumber:ticketnumber},
+              success: function (result) {
+                $("#modal-title").html("Ticket No. = "+ticketnumber);
+                var sentence = "Description is '"+result.description+"'<br>";
+                sentence+="Status = "+result.status+"<br>";
+                sentence+="Estimated time = "+result.estimatedtime+"<br>";
+                sentence+="Remaining time = "+result.remainingtime+"<br>";
+                sentence+="Completed percentage = "+result.completepercentage+"<br>";
+                sentence+="Comments = "+result.comments+"<br>";
+                if(result.is_subticket === "yes" || result.is_subticket ==="y")
+              {
+                  sentence+="This ticket is a subticket <br>";
+                  sentence+="Main ticket No. = "+result.main_ticket_no+"<br>";
+              }
+              else
+              {
+                sentence+="This ticket is not a subticket <br>";
+              }
+
+              if(result.istesting === "yes" || result.istesting === "y")
+              {
+                sentence+="Under testing <br>";
+                sentence+="Testing iteration = "+result.iteration_no+"<br>";
+              }
+              else
+              {
+                
+              }
+
+                $("#mb").html(sentence);
+                $("#mymodal").modal('show');
+              //console.log(result);
+             
+        }
+      });
+             
+            });
+
+        $(document).on('click','.edit',function(){
+              //console.log("inside edit");
+              var ticketnumber = $(this).closest('tr').find('td:eq(1)').text();
+              $.ajax({
+              type: "POST",
+              url: "get_ticket_values.php",
+              cache: false,
+              dataType: "json",
+              data: { ticketnumber:ticketnumber},
+              success: function (result) {
+              $('#ticketnumber1').val(ticketnumber);
+              $('#description1').val(result.description);
+              $('#status1').val(result.status);
+              $("#estimatedtime1").val(result.estimatedtime);
+              $('#login_time1').val(result.login_time);
+              $('#logout_time1').val(result.logout_time);
+              for(var i = parseInt(result.remainingtime); i>=0; i--)
+                {   var option="";
+                    option = '<option value="'+i+'">' +i+ '</option>';
+                    $('#remainingtime1').append(option);
+                }
+                for(var i = 0; i <=100-parseInt(result.completepercentage); i+=5)
+                {   var option="";
+                    option = '<option value="'+i+'">' +i+ '</option>';
+                    $('#completepercentage1').append(option);
+                }
+              $('#comments1').val(result.comments);
+              if(result.is_subticket === "yes" || result.is_subticket ==="y")
+              {
+                  $("#is_subticket_yes").prop("checked",true);
+                  $(".subdiv").show();
+                  $("#main_ticket_no1").val(result.main_ticket_no);
+              }
+              else
+              {
+                $("#is_subticket_no").prop("checked",true);
+                $(".subdiv").hide();
+                $("#main_ticket_no1").val("");
+
+              }
+              
+              if(result.istesting === "yes" || result.istesting === "y")
+              {
+                $("#istesting_yes").prop("checked",true);
+                $(".iterationdiv").show();
+
+                $("#iteration_no1").val(result.iteration_no);
+              }
+              else
+              {
+                $("#istesting_no").prop("checked",true);
+                $(".iterationdiv").hide();
+
+                $("#iteration_no1").val("");
+              }
+
+            
+        }
+      });
+             
+            });
+
          function get_estimation_function(ticketnumber) {
-                    console.log(ticketnumber);
                     var index=$("input[name='ticketnumber[]']").length;
                     $.ajax({
                     type: "POST",
@@ -204,8 +367,7 @@ h2
                         ticketnumber: ticketnumber
                     },
                     cache: false,
-                    success: function(response) { 
-                        console.log(response);                       
+                    success: function(response) {                        
                         var idname = ["completepercentage1","estimatedtime1","remainingtime1"];
                         for (i=0;i<idname.length;i++)
                         {
@@ -248,8 +410,16 @@ h2
 
             }
 
-             function clear_function(idname){
-              $('#'+idname).trigger('reset');
+            function appendtable()
+            {
+              $.ajax({
+              type: "POST",
+              url: "get_ticket_details.php",
+              cache: false,
+              success: function (result) {
+              $("tbody").append(result);
+            }
+          });
             }
 
             $(document).on('change','.testing_radio',function(){
@@ -278,7 +448,44 @@ h2
               }     
             });
 
+            function getmarks()
+            {
+              var marks;
+              var ticketnumber=$("#ticketnumber1").val();
+              console.log(ticketnumber);
+               $.ajax({
+                    type: "POST",
+                    url: "getmarks.php",
+                    dataType: 'json',
+                    data: {
+                        ticketnumber:ticketnumber
+                    },
+                    cache: false,
+                    success: function(response) { 
+                      console.log("Success is working");
+                      marks=response.prev_marks;
+                      if(response.prev_status)
+                      {
+                        console.log(response.prev_status);                  
+                       var current_index = $('#status1 option:selected').index(); 
+                       console.log(current_index);
+                         var prev_index=$('#status1 option[value="'+response.prev_status+'"]').index();
+                       console.log(prev_index);
+                       if(prev_index>current_index)
+                          {
+                            var dec=prev_index-current_index;
+                            marks-=(5*dec);
+                          }     
+                      }
+                      console.log(marks);
+                      $("#mark1").val(marks);
+                }
+            });
+             }
+
          $(document).ready(function() {
+
+             appendtable();
 
              $('.login_time').timepicker();
              $('.logout_time').timepicker();
@@ -331,7 +538,8 @@ h2
 
              $('#submit').click(function(e) {
                  e.preventDefault();
-
+console.log("Submit is working");
+                 var mark=100;
                  var emptymsg='';
                  var empty=false;
                  if($(".ticketnumber").val()=='')
@@ -339,7 +547,7 @@ h2
                   emptymsg+="Ticket Number is required<br>";
                   empty=true;
                  }
-                 if($(".status").val()=='')
+                 if($(".status").val()=='----------SELECT----------')
                  {
                   emptymsg+="Status is required<br>";
                   empty=true;
@@ -390,13 +598,14 @@ h2
         var remainingtime = $("select[name='remainingtime[]']").map(function(){return $(this).val();}).get();
         var completepercentage = $("select[name='completepercentage[]']").map(function(){return $(this).val();}).get();
         var comments = $("textarea[name='comments[]']").map(function(){return $(this).val();}).get();
-         var is_subticket = $("input[name='is_subticket[]']:checked").map(function(){return $(this).val();}).get();
+        // var is_subticket = $("input[name='is_subticket[]']:checked").map(function(){return $(this).val();}).get();
         var is_subticket = $("input[name='is_subticket']:checked").val();
         console.log(is_subticket);
         var main_ticket_no = $("input[name='main_ticket_no[]']").map(function(){return $(this).val();}).get();
-         var istesting = $("input[name='istesting[]']:checked").map(function(){return $(this).val();}).get();
+        // var istesting = $("input[name='istesting[]']:checked").map(function(){return $(this).val();}).get();
         var istesting = $("input[name='istesting']:checked").val();
         var iteration_no = $("input[name='iteration_no[]']").map(function(){return $(this).val();}).get();
+        var mark=$("#mark1").val();
                  $.ajax({
          
                      type: "POST",
@@ -415,26 +624,29 @@ h2
                          is_subticket: is_subticket,
                          main_ticket_no: main_ticket_no,
                          istesting: istesting,
-                         iteration_no: iteration_no
-         
+                         iteration_no: iteration_no,
+                         mark:mark
                      },
                      cache: false,
                      success: function(response) {
+                      // console.log("This is inside success");
                          if (response.code == "200") {
-                          console.log("This is inside success function");
+                          console.log("This is inside code 200");
                              if(response.error_msg) {
-                              console.log("This is inside success error");
+                              // console.log("This is inside success error");
                              $("#eodform1").trigger("reset");
                              $('#error_msg').html(response.error_msg);
                              $('#error_div').show("fast");
                              $('#error_div').delay(8000).hide(0);
                              }
                              else{
-                              console.log("This is inside success success");
+                              // console.log("This is inside success success");
                              $("#success_msg").html(response.message);
                              $("#eodform").trigger("reset");
                              $('#success_div').show("fast");
                              $('#success_div').delay(8000).hide(0);
+                              $("tbody").html("");
+                             appendtable();
                              // setTimeout(location.reload.bind(location), 1000);
                            }
                          }
@@ -448,12 +660,12 @@ h2
                }
              });
 
-             $(document).on('click', '.clear', function(){ 
-            console.log("inside the click function");
-                var form_id = $(this).closest('.eodform').attr('id');  
-                console.log(form_id);              
-                $('#'+form_id).trigger("reset");
-            });
+            //  $(document).on('click', '.clear', function(){ 
+            // console.log("inside the click function");
+            //     var form_id = $(this).closest('.eodform').attr('id');  
+            //     console.log(form_id);              
+            //     $('#'+form_id).trigger("reset");
+            // });
          });
       </script>
    </body>
