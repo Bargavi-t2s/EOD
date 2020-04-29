@@ -7,6 +7,7 @@ date_default_timezone_set("Asia/Calcutta");
 $curent_date_time = date(" Y-m-d H:i:s");
 $user_id="Userid";
 $user_name="Username";
+$date=date("Y-m-d H:i:s");
 
 if ($_POST) {
     $ticketnumber       = ($_POST['ticketnumber']);
@@ -43,7 +44,7 @@ if ($db) {
         
         if (true) {
 
-            $update = "UPDATE `eodtable` SET `user_id` = '$user_id',`user_name` = '$user_name',`description` = '$description[$i]', `status` = '$status[$i]',`estimatedtime` = '$estimatedtime[$i]',`login_time` = '$login_time[$i]', `logout_time` = '$logout_time[$i]', `remainingtime` = '$remainingtime[$i]', `completepercentage` = '$completepercentage[$i]', `comments` = '$comments[$i]', `is_subticket` = '$is_subticket[$i]', `main_ticket_no` = '$main_ticket_no[$i]', `istesting`='$istesting[$i]', `iteration_no` = '$iteration_no[$i]',`updated_time`='$curent_date_time' WHERE `ticketnumber` = '$ticketnumber[$i]';";
+            $update = "UPDATE `eodtable` SET `user_id` = '$user_id',`user_name` = '$user_name',`description` = '$description[$i]', `status` = '$status[$i]',`estimatedtime` = '$estimatedtime[$i]',`login_time` = '$login_time[$i]', `logout_time` = '$logout_time[$i]', `remainingtime` = '$remainingtime[$i]', `completepercentage` = '$completepercentage[$i]', `comments` = '$comments[$i]', `is_subticket` = '$is_subticket[$i]', `main_ticket_no` = '$main_ticket_no[$i]', `istesting`='$istesting[$i]', `iteration_no` = '$iteration_no[$i]',`updated_time`='$curent_date_time',`date` = '$date' WHERE `ticketnumber` = '$ticketnumber[$i]';";
 
 
         
@@ -72,7 +73,7 @@ if ($db) {
 
     else {
 
-        $store = "INSERT INTO `eodtable` (`user_id`,`user_name`,`ticketnumber`, `description`, `status`, `estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`comments`,`is_subticket`,`main_ticket_no`,`istesting`,`iteration_no`,`created_date_time`) VALUES ('$user_id','$user_name','$ticketnumber[$i]','$description[$i]','$status[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$comments[$i]','$is_subticket[$i]','$main_ticket_no[$i]','$istesting[$i]','$iteration_no[$i]','$curent_date_time')";
+        $store = "INSERT INTO `eodtable` (`user_id`,`user_name`,`ticketnumber`, `description`, `status`, `estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`comments`,`is_subticket`,`main_ticket_no`,`istesting`,`iteration_no`,`created_date_time`,`date`) VALUES ('$user_id','$user_name','$ticketnumber[$i]','$description[$i]','$status[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$comments[$i]','$is_subticket[$i]','$main_ticket_no[$i]','$istesting[$i]','$iteration_no[$i]','$curent_date_time','$date')";
 
         if (mysqli_query($db, $store)) {
             
@@ -88,6 +89,7 @@ if ($db) {
         } 
         else {
             echo json_encode(array(
+    'code' => 404,
     'status' => 'error',
     'message'=> 'Database Insertion failure'
          ));
@@ -100,6 +102,7 @@ if ($db) {
 
 if($success === 1){
     echo json_encode(array(
+        'code' => 200,
     'status' => 'success',
     'message'=> 'You have successfully submitted your end of the day report'
          ));
@@ -110,6 +113,7 @@ if($success === 1){
 else 
 {
     echo json_encode(array(
+        'code' => 404,
     'status' => 'error',
     'message'=> 'Database connection failure'
 ));
