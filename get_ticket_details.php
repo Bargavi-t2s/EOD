@@ -1,26 +1,26 @@
 <?php
-   include('dbconnection.php');
+
+include('dbconnection.php');
+include('ManageEod.php');
+include('ManageEodLogs.php');
+$ManageEod= new ManageEod();
+$ManageEodLogs = new ManageEodLogs();
 if($db)
  {
  	$a=0;
 
-  $sql="SELECT `ticketnumber`,`status`,`remainingtime`,`completepercentage`,`mark` from `eodtable` ORDER BY `date` DESC LIMIT 15;";
-
- 	
- $result=mysqli_query($db,$sql);
- if(mysqli_num_rows($result)>0)
+  if($data = $ManageEod->getRecordForUpdateTable())
  {
-	while($i=mysqli_fetch_assoc($result))
+	foreach ($data as $i) 
  {	
  	
- 	$ticketnumber=$i['ticketnumber'];
+ 	$ticketnumber=$i['ticket_number'];
  	$status=$i['status'];
- 	$remainingtime=$i['remainingtime'];
- 	$completepercentage=$i['completepercentage'];
+ 	$remainingtime=$i['remaining_time'];
+ 	$completepercentage=$i['complete_percentage'];
  	$mark=$i['mark'];
  	
- 	if(($ticketnumber!=NULL) && ($status!=NULL) && ($remainingtime!=NULL) )
- 		//&& ($completepercentage!=NULL))
+ 	if(true)
  	{
  		$a=$a+1;
 

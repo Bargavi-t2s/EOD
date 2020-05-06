@@ -1,12 +1,20 @@
 <?php
 include('dbconnection.php');
+include('ManageEod.php');
+include('ManageEodLogs.php');
+$ManageEod= new ManageEod();
+$ManageEodLogs = new ManageEodLogs();
+//$data = $ManageEod -> getALLRecords();
+
+
 session_start();
 $ticketnumber = $description = $status = $estimatedtime = $login_time = $logout_time = $remainingtime = $completepercentage = $comments = $is_subticket = $main_ticket_no = $istesting = $iteration_no = $mark= array();
 
 date_default_timezone_set("Asia/Calcutta");
 $curent_date_time = date(" Y-m-d H:i:s");
-$user_id="Userid";
+$user_id=1174;
 $user_name="Username";
+$prefix = "MAN";
 $date=date("Y-m-d H:i:s");
 
 if ($_POST) {
@@ -33,62 +41,110 @@ if ($db) {
     $success=0;
     
     for ($i=0; $i < $length ; $i++) { 
-    
-    $check = "SELECT * from `eodtable` WHERE `ticketnumber`='$ticketnumber[$i]';";
-
-    $result = mysqli_query($db, $check);
-    
-    $answer = mysqli_fetch_assoc($result);
    
-    if($answer)
-    {
-            $update = "UPDATE `eodtable` SET `user_id` = '$user_id',`user_name` = '$user_name',`description` = '$description[$i]', `status` = '$status[$i]',`estimatedtime` = '$estimatedtime[$i]',`login_time` = '$login_time[$i]', `logout_time` = '$logout_time[$i]', `remainingtime` = '$remainingtime[$i]', `completepercentage` = '$completepercentage[$i]', `mark`= '$mark',`comments` = '$comments[$i]', `is_subticket` = '$is_subticket', `main_ticket_no` = '$main_ticket_no[$i]', `istesting`='$istesting', `iteration_no` = '$iteration_no[$i]',`updated_time`='$curent_date_time',`date` = '$date'WHERE `ticketnumber` = '$ticketnumber[$i]';";
-        if (mysqli_query($db, $update)) 
-        {
-            $success = 1;
+    if($eod_id = $ManageEod->getEodIdByTicketnumber($ticketnumber[$i]))
+    {       
 
-            $storing = "INSERT INTO `eodtable2` (`user_id`,`user_name`,`ticketnumber`,`estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`mark`,`created_date_time`) VALUES ('$user_id','$user_name','$ticketnumber[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$curent_date_time')";
+        $form_fields= array('user_id' => $user_id,
+                            'user_name' => $user_name,
+                            'prefix' => $prefix,
+                            'description' => $description[$i],
+                            'status' => $status[$i],
+                            'estimated_time' => $estimatedtime[$i],
+                            'login_time' => $login_time[$i],
+                            'logout_time' => $logout_time[$i],
+                            'remaining_time' => $remainingtime[$i],
+                            'complete_percentage' => $completepercentage[$i],
+                            'mark' => $mark,
+                            'comments' => $comments[$i],
+                            'is_subticket' => $is_subticket,
+                            'main_ticket_no' => $main_ticket_no[$i],
+                            'is_testing' => $istesting,
+                            'iteration_no' => $iteration_no[$i],
+                            'updated_time' => $curent_date_time,
+                            'date' => $date);
+                if($ManageEod->update($form_fields,$ticketnumber[$i]))
+                    { 
+                  
+                        $success = 1;
+                        $form_fields_2= array('eod_id' => $eod_id,
+                            'user_name' => $user_name,
+                            'status' => $status[$i],
+                            'login_time' => $login_time[$i],
+                            'logout_time' => $logout_time[$i],
+                            'remaining_time' => $remainingtime[$i],
+                            'complete_percentage' => $completepercentage[$i],
+                            'created_at' => $date);
+                            if($ManageEodLogs->insert($form_fields_2))
+                            {
+                                $success = 1;
+                            }
+                            else
+                            {
+                                echo json_encode(['code' => 404, 'message'=> 'Database Insertion failure']);  
+                                break;
+                            }
+                  
+                    }
+                    else
+                    {
+                        echo json_encode(['code' => 404, 'message'=> 'Database Insertion failure']);  
+                                break;
+                    }
+            }
 
-        if (mysqli_query($db, $storing)) {
-            
-            $success =  1;
-        } 
-            
-        } 
-        else 
-        {
-            echo json_encode(['code' => 404, 'message'=> 'Database Insertion failure']);  
-      break;
-        }        
-    }
-
-    else {
-
-        $store = "INSERT INTO `eodtable` (`user_id`,`user_name`,`ticketnumber`, `description`, `status`, `estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`mark`,`comments`,`is_subticket`,`main_ticket_no`,`istesting`,`iteration_no`,`created_date_time`, `date`) VALUES ('$user_id','$user_name','$ticketnumber[$i]','$description[$i]','$status[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$comments[$i]','$is_subticket','$main_ticket_no[$i]','$istesting','$iteration_no[$i]','$curent_date_time','$date')";
-
-        if (mysqli_query($db, $store)) {
-            
-            $success =  1;
-
-            $storing = "INSERT INTO `eodtable2` (`user_id`,`user_name`,`ticketnumber`,`estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`mark`,`created_date_time`) VALUES ('$user_id','$user_name','$ticketnumber[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$curent_date_time')";
-
-        if (mysqli_query($db, $storing)) {
-            
-            $success =  1;
-        } 
-
-        } 
-        else {
-            echo json_encode([
-    'code' => 404,
-    'message'=> 'Database Insertion failure'
-         ]);
-            break;
-
+            else
+            {
+                $form_fields= array('user_id' => $user_id,
+                            'user_name' => $user_name,
+                            'ticket_number' => $ticketnumber[$i],
+                            'prefix' => $prefix,
+                            'description' => $description[$i],
+                            'status' => $status[$i],
+                            'estimated_time' => $estimatedtime[$i],
+                            'login_time' => $login_time[$i],
+                            'logout_time' => $logout_time[$i],
+                            'remaining_time' => $remainingtime[$i],
+                            'complete_percentage' => $completepercentage[$i],
+                            'mark' => $mark,
+                            'comments' => $comments[$i],
+                            'is_subticket' => $is_subticket,
+                            'main_ticket_no' => $main_ticket_no[$i],
+                            'is_testing' => $istesting,
+                            'iteration_no' => $iteration_no[$i],
+                            'updated_time' => $curent_date_time,
+                            'date' => $date);
+                if($ManageEod->insert($form_fields))
+                {
+                    $success = 1;
+                    $eod_id = $ManageEod->getEodIdByTicketnumber($ticketnumber[$i]);
+                    $form_fields_2= array('eod_id' => $eod_id,
+                            'user_name' => $user_name,
+                            'status' => $status[$i],
+                            'login_time' => $login_time[$i],
+                            'logout_time' => $logout_time[$i],
+                            'remaining_time' => $remainingtime[$i],
+                            'complete_percentage' => $completepercentage[$i],
+                            'created_at' => $date);
+                            if($ManageEodLogs->insert($form_fields_2))
+                            {
+                                $success = 1;
+                            }
+                            else
+                            {
+                                echo json_encode(['code' => 404, 'message'=> 'Database Insertion failure']);  
+                                break;
+                            }
+                }
+                else
+                {
+                    echo json_encode(['code' => 404, 'message'=> 'Database Insertion failure']);  
+                                break;
+                }
+            }
         }
     }
 
-} 
 
 if($success === 1){
     echo json_encode([
@@ -96,9 +152,6 @@ if($success === 1){
     'message'=> 'You have successfully submitted your end of the day report'
          ]);
 }
-
-}
-
 else 
 {
     echo json_encode([
@@ -107,6 +160,7 @@ else
 ]);
     
 }
+
 
 ?>
 

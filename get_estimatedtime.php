@@ -1,19 +1,19 @@
 <?php
 include('dbconnection.php');
+include('ManageEod.php');
+include('ManageEodLogs.php');
+$ManageEod= new ManageEod();
+$ManageEodLogs = new ManageEodLogs();
 if($db){
 	
 if ($_POST) {
     $ticketnumber = ($_POST['ticketnumber']);
 }
-
-$check = "SELECT `estimatedtime`,`remainingtime`,`completepercentage` from `eodtable` WHERE `ticketnumber`='$ticketnumber';";
-
-$result = mysqli_query($db, $check);
     
-    $answer = mysqli_fetch_assoc($result);
+    $answer = $ManageEod->getRecordByTicketnumber($ticketnumber);
     if($answer)
 
-    {	echo json_encode(array('prev_estimatedtime'=> $answer['estimatedtime'],'prev_remainingtime' => $answer['remainingtime'],'prev_completepercentage' => $answer['completepercentage'] ));  
+    {	echo json_encode(array('prev_estimatedtime'=> $answer['estimated_time'],'prev_remainingtime' => $answer['remaining_time'],'prev_completepercentage' => $answer['complete_percentage'] ));  
     }
     else
     {

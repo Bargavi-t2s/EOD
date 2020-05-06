@@ -1,12 +1,9 @@
 <?php
-// $db_name="bartestdb"; // database name
-//    $db_user="bargavi"; // database username
-//    $db_pass="manickam"; // database password
-//    $db_host="localhost"; // 
-//    $error="";
-//    $db="";
-//    $db=mysqli_connect("$db_host","$db_user","$db_pass","$db_name");
 include('dbconnection.php');
+include('ManageEod.php');
+include('ManageEodLogs.php');
+$ManageEod= new ManageEod();
+$ManageEodLogs = new ManageEodLogs();
    if($_POST['ticketnumber'])
    {
    	$ticketnumber = $_POST['ticketnumber'];
@@ -15,28 +12,24 @@ if($db)
  {
  	if($ticketnumber)
  	{
- $sql="SELECT `description`, `status`, `estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`comments`,`is_subticket`,`main_ticket_no`,`istesting`,`iteration_no`,`mark` from `eodtable` WHERE `ticketnumber`= $ticketnumber ;";
- $result=mysqli_query($db,$sql);
- if(mysqli_num_rows($result)>0)
+  if($i=$ManageEod->getRecordsByTicketnumber($ticketnumber))
  {
-	while($i=mysqli_fetch_assoc($result))
- {	
- 	
+	
  	echo json_encode( array( 
  	'description'        => ($i['description']),
     'status'             => ($i['status']),
-    'estimatedtime'      => ($i['estimatedtime']),
+    'estimatedtime'      => ($i['estimated_time']),
     'login_time'         => ($i['login_time']),
     'logout_time'        => ($i['logout_time']),
-    'remainingtime'      => ($i['remainingtime']),
-    'completepercentage' => ($i['completepercentage']),
+    'remainingtime'      => ($i['remaining_time']),
+    'completepercentage' => ($i['complete_percentage']),
     'mark'               => ($i['mark']),
     'comments'           => ($i['comments']),
     'is_subticket'       => ($i['is_subticket']),
     'main_ticket_no'     => ($i['main_ticket_no']),
-    'istesting'          => ($i['istesting']),
+    'istesting'          => ($i['is_testing']),
     'iteration_no'       => ($i['iteration_no'])));
- }
+ 
  }
 }
 else

@@ -26,7 +26,7 @@ h2
 
   label
   {
-    font-size: 1.3em;
+    font-size: 1.5em;
   }
 
   .radio
@@ -100,14 +100,17 @@ h2
               <div class="col-sm-6">
                 <select class="form-control status" id="status1" onblur="getmarks()" name="status[]">
                   <option value="----------SELECT----------">----------SELECT----------</option>
-                  <option value="initiated">Initiated</option>
-                  <option value="started">Started</option>
-                  <option value="middle level">Middle Level</option>
-                  <option value="prior testing">Prior Review</option>
-                  <option value="staging testing">Staging Testing</option>
-                  <option value="bug fixes">Bug Fixes</option>
-                  <option value="waiting for production">Waiting for Production</option>
-                  <option value="production testing">Production Testing</option>
+                  <option value="NOT_STARTED">NOT_STARTED</option>
+                  <option value="INITIATED">INITIATED</option>
+                  <option value="STARTED">STARTED</option>
+                  <option value="MID_LEVEL">MID_LEVEL</option>
+                  <option value="PEER_REVIEW">PEER_REVIEW</option>
+                  <option value="STAG_TESTING">STAG_TESTING</option>
+                  <option value="BIG_FIXES">BIG_FIXES</option>
+                  <option value="WAIT_PROD">WAIT_PROD</option>
+                  <option value="PROD_TESTING">PROD_TESTING</option>
+                  <option value="BLOCKED">BLOCKED</option>
+                  <option value="DONE">DONE</option>
                 </select>
               </div>
            </div>
@@ -317,7 +320,7 @@ h2
                     option = '<option value="'+i+'">' +i+ '</option>';
                     $('#remainingtime1').append(option);
                 }
-                for(var i = 0; i <=100-parseInt(result.completepercentage); i+=5)
+                for(var i = parseInt(result.completepercentage); i <=100; i+=5)
                 {   var option="";
                     option = '<option value="'+i+'">' +i+ '</option>';
                     $('#completepercentage1').append(option);
@@ -376,7 +379,7 @@ h2
                             $('#'+idname[i]).find('option').remove();
                         } 
                         $('#'+idname[1]).val("");
-                        for(var i = 0; i <=100-parseInt(response.prev_completepercentage); i+=5)
+                        for(var i = parseInt(response.prev_completepercentage); i <=100; i+=5)
                         {   var option="";
                             option = '<option value="'+i+'">' +i+ '</option>';
                             $('#'+idname[0]).append(option);
@@ -630,6 +633,7 @@ console.log("Submit is working");
                      },
                      cache: false,
                      success: function(response) {
+                      //console.log(response);
                       // console.log("This is inside success");
                          if (response.code == "200") {
                           console.log("This is inside code 200");
