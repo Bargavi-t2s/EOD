@@ -6,14 +6,14 @@ if ($_POST) {
     $ticketnumber = ($_POST['ticketnumber']);
 }
 
-$check = "SELECT `estimatedtime`,`remainingtime`,`completepercentage` from `eodtable` WHERE `ticketnumber`='$ticketnumber';";
+$check = "SELECT `estimated_time`,`remaining_time`,`complete_percentage` from `manage_eod` WHERE `ticket_number`='$ticketnumber';";
 
 $result = mysqli_query($db, $check);
     
     $answer = mysqli_fetch_assoc($result);
     if($answer)
 
-    {	echo json_encode(array('prev_estimatedtime'=> $answer['estimatedtime'],'prev_remainingtime' => $answer['remainingtime'],'prev_completepercentage' => $answer['completepercentage'] ));  
+    {	echo json_encode(array('prev_estimatedtime'=> $answer['estimated_time'],'prev_remainingtime' => $answer['remaining_time'],'prev_completepercentage' => $answer['complete_percentage'] ));  
     }
     else
     {

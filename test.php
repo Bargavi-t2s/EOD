@@ -83,10 +83,21 @@ h2
           <div id="form">
           <form class="eodform" id="eodform1" method="POST">
             <h2 class="text-center mb-5">EOD</h2>
+             <div class="form-group row">
+              <label for="prefix" class="col-sm-6">Prefix<span class="star" style="color:red">*</span></label>
+              <div class="col-sm-6">
+                <select class="form-control prefix" id="prefix1" name="prefix[]" autofocus>
+                  <option value="----------SELECT----------">----------SELECT----------</option>
+                  <option value="MAN">MAN</option>
+                  <option value="API">API</option>
+                  <option value="CHECK">CHECK</option>
+                </select>
+              </div>
+           </div>
            <div class="form-group row">
               <label for="ticketnumber" class="col-sm-6">Ticket MS-<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                 <input type="text" class="form-control ticketnumber" name="ticketnumber[]" id="ticketnumber1" pattern="([0-9]+)" title="Only numbers are accepeted" onblur="get_estimation_function($(this).val())" placeholder="Ticket Number" autofocus required>
+                 <input type="text" class="form-control ticketnumber" name="ticketnumber[]" id="ticketnumber1" pattern="([0-9]+)" title="Only numbers are accepeted" onblur="get_estimation_function($(this).val())" placeholder="Ticket Number"required>
               </div>
             </div>
             <div class="form-group row">
@@ -100,14 +111,17 @@ h2
               <div class="col-sm-6">
                 <select class="form-control status" id="status1" onblur="getmarks()" name="status[]">
                   <option value="----------SELECT----------">----------SELECT----------</option>
-                  <option value="initiated">Initiated</option>
-                  <option value="started">Started</option>
-                  <option value="middle level">Middle Level</option>
-                  <option value="prior testing">Prior Review</option>
-                  <option value="staging testing">Staging Testing</option>
-                  <option value="bug fixes">Bug Fixes</option>
-                  <option value="waiting for production">Waiting for Production</option>
-                  <option value="production testing">Production Testing</option>
+                  <option value="NOT_STARTED">Not Started</option>
+                  <option value="INITIATED">Initiated</option>
+                  <option value="STARTED">Started</option>
+                  <option value="MIDDLE_LEVEL">Middle Level</option>
+                  <option value="PRIOR_REVIEW">Prior Review</option>
+                  <option value="STAGE_TESTING">Stage Testing</option>
+                  <option value="BUG_FIXES">Bug Fixes</option>
+                  <option value="WAIT_PROD">Waiting for Production</option>
+                  <option value="PROD_TESTING">Production Testing</option><option value="PROD_TESTING">Production Testing</option>
+                  <option value="BLOCKED">BLOCKED</option>
+                  <option value="DONE">Done</option>
                 </select>
               </div>
            </div>
@@ -157,14 +171,14 @@ h2
            <div class="form-group row">
               <label for="is_subticket" class="col-sm-6">Is it Sub Ticket ?<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                 <input type="radio" value="yes" id="is_subticket_yes"class="is_subticket_radio radio" name="is_subticket" required>Yes
+                 <input type="radio" value="yes" id="is_subticket_yes" class="is_subticket_radio radio" name="is_subticket" required>Yes
                  <input type="radio" value="no" id="is_subticket_no" class="is_subticket_radio radio radio-right"  name="is_subticket">No
               </div>
             </div>
             <div class="subdiv" id="subdiv1">
               <div class="form-group row">
                     <label for="main_ticket_no" class="col-sm-6">Main Ticket Number</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <input type="text" class="form-control" id="main_ticket_no1" name="main_ticket_no[]">
                     </div>
                 </div>
@@ -173,13 +187,13 @@ h2
               <label for="istesting" class="col-sm-6">Went for Testing ?<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
                  <input type="radio" value="yes" id="istesting_yes" class="testing_radio radio" name="istesting" required>Yes
-                 <input type="radio" value="no" id ="istesting_no" class="testing_radio radio radio-right"  name="istesting">No
+                 <input type="radio" value="no" id="istesting_no" class="testing_radio radio radio-right"  name="istesting">No
               </div>
            </div>
            <div id="iterationdiv1" class="iterationdiv">
               <div class="form-group row">
                  <label for="iteration_no" class="col-sm-6">Iteration Number</label>
-                 <div class="col-sm-4">
+                 <div class="col-sm-2">
                     <input type="number" class="form-control" min='1' id="iteration_no1" name="iteration_no[]">
                  </div>
               </div>
@@ -206,6 +220,7 @@ h2
                   <thead>
                      <tr>
                         <th >SI No.</th>
+                        <th >Prefix</th>
                         <th>Ticket No.</th>
                         <th >Status</th>
                         <th >Remaining Time</th>
@@ -250,8 +265,9 @@ h2
       <script type="text/javascript">
 
         $(document).on('click','.view',function(){
-              //console.log("inside view");
-              var ticketnumber = $(this).closest('tr').find('td:eq(1)').text();
+              console.log("inside view");
+              var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
+              console.log(ticketnumber);
               $.ajax({
               type: "POST",
               url: "get_ticket_values.php",
@@ -259,7 +275,8 @@ h2
               dataType: "json",
               data: { ticketnumber:ticketnumber},
               success: function (result) {
-                $("#modal-title").html("Ticket No. = "+ticketnumber+"<br> The mark = "+result.mark);
+                console.log("This is inside view success");
+                $("#modal-title").html("Prefix = "+result.prefix+"<br>Ticket No. = "+ticketnumber+"<br> The mark = "+result.mark);
                 var sentence = "Description is '"+result.description+"'<br>";
                 sentence+="Status = "+result.status+"<br>";
                 sentence+="Estimated time = "+result.estimatedtime+"<br>";
@@ -296,8 +313,8 @@ h2
             });
 
         $(document).on('click','.edit',function(){
-              //console.log("inside edit");
-              var ticketnumber = $(this).closest('tr').find('td:eq(1)').text();
+              console.log("inside edit");
+              var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
               $.ajax({
               type: "POST",
               url: "get_ticket_values.php",
@@ -305,6 +322,8 @@ h2
               dataType: "json",
               data: { ticketnumber:ticketnumber},
               success: function (result) {
+                console.log("This is inside edit success");
+              $('#prefix1').val(result.prefix);
               $('#ticketnumber1').val(ticketnumber);
               $('#description1').val(result.description);
               $('#status1').val(result.status);
@@ -418,7 +437,9 @@ h2
               url: "get_ticket_details.php",
               cache: false,
               success: function (result) {
+                console.log("This is append success");
               $("tbody").append(result);
+              console.log(result);
             }
           });
             }
@@ -543,6 +564,11 @@ console.log("Submit is working");
                  var mark=100;
                  var emptymsg='';
                  var empty=false;
+                 if($(".prefix").val()=='----------SELECT----------')
+                 {
+                  emptymsg+="Prefix is required<br>";
+                  empty=true;
+                 }
                  if($(".ticketnumber").val()=='')
                  {
                   emptymsg+="Ticket Number is required<br>";
@@ -590,6 +616,7 @@ console.log("Submit is working");
                   $('#error_div').delay(8000).hide(2000);
                  }
                  else{
+        var prefix = $("select[name='prefix[]']").map(function(){return $(this).val();}).get();
         var ticketnumber = $("input[name='ticketnumber[]']").map(function(){return $(this).val();}).get();
         var description = $("textarea[name='description[]']").map(function(){return $(this).val();}).get();
         var status = $("select[name='status[]']").map(function(){return $(this).val();}).get();
@@ -607,12 +634,14 @@ console.log("Submit is working");
         var istesting = $("input[name='istesting']:checked").val();
         var iteration_no = $("input[name='iteration_no[]']").map(function(){return $(this).val();}).get();
         var mark=$("#mark1").val();
+        console.log(prefix);
                  $.ajax({
          
                      type: "POST",
                      url: "eoddb.php",
                      dataType: "json",
                      data: {
+                         prefix: prefix,
                          ticketnumber: ticketnumber,
                          description: description,
                          status: status,
@@ -630,7 +659,7 @@ console.log("Submit is working");
                      },
                      cache: false,
                      success: function(response) {
-                      // console.log("This is inside success");
+                      console.log("This is inside success");
                          if (response.code == "200") {
                           console.log("This is inside code 200");
                              if(response.error_msg) {

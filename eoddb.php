@@ -1,15 +1,16 @@
 <?php
 include('dbconnection.php');
 session_start();
-$ticketnumber = $description = $status = $estimatedtime = $login_time = $logout_time = $remainingtime = $completepercentage = $comments = $is_subticket = $main_ticket_no = $istesting = $iteration_no = $mark= array();
+$prefix = $ticketnumber = $description = $status = $estimatedtime = $login_time = $logout_time = $remainingtime = $completepercentage = $comments = $is_subticket = $main_ticket_no = $istesting = $iteration_no = $mark= array();
 
 date_default_timezone_set("Asia/Calcutta");
 $curent_date_time = date(" Y-m-d H:i:s");
-$user_id="Userid";
+$user_id=123456;
 $user_name="Username";
 $date=date("Y-m-d H:i:s");
 
 if ($_POST) {
+    $prefix             = ($_POST['prefix']);
     $ticketnumber       = ($_POST['ticketnumber']);
     $description        = ($_POST['description']);
     $status             = ($_POST['status']);
@@ -34,7 +35,7 @@ if ($db) {
     
     for ($i=0; $i < $length ; $i++) { 
     
-    $check = "SELECT * from `eodtable` WHERE `ticketnumber`='$ticketnumber[$i]';";
+    $check = "SELECT * from `manage_eod` WHERE `ticket_number`='$ticketnumber[$i]';";
 
     $result = mysqli_query($db, $check);
     
@@ -42,12 +43,12 @@ if ($db) {
    
     if($answer)
     {
-            $update = "UPDATE `eodtable` SET `user_id` = '$user_id',`user_name` = '$user_name',`description` = '$description[$i]', `status` = '$status[$i]',`estimatedtime` = '$estimatedtime[$i]',`login_time` = '$login_time[$i]', `logout_time` = '$logout_time[$i]', `remainingtime` = '$remainingtime[$i]', `completepercentage` = '$completepercentage[$i]', `mark`= '$mark',`comments` = '$comments[$i]', `is_subticket` = '$is_subticket', `main_ticket_no` = '$main_ticket_no[$i]', `istesting`='$istesting', `iteration_no` = '$iteration_no[$i]',`updated_time`='$curent_date_time',`date` = '$date'WHERE `ticketnumber` = '$ticketnumber[$i]';";
+            $update = "UPDATE `manage_eod` SET `prefix` = '$prefix[$i]',`user_name` = '$user_name', `user_id` = '$user_id',`description` = '$description[$i]', `status` = '$status[$i]',`estimated_time` = '$estimatedtime[$i]',`login_time` = '$login_time[$i]', `logout_time` = '$logout_time[$i]', `remaining_time` = '$remainingtime[$i]', `complete_percentage` = '$completepercentage[$i]', `mark`= '$mark',`comments` = '$comments[$i]', `is_subticket` = '$is_subticket', `main_ticket_no` = '$main_ticket_no[$i]', `is_testing`='$istesting', `iteration_no` = '$iteration_no[$i]',`updated_time`='$curent_date_time',`date` = '$date'WHERE `ticket_number` = '$ticketnumber[$i]';";
         if (mysqli_query($db, $update)) 
         {
             $success = 1;
 
-            $storing = "INSERT INTO `eodtable2` (`user_id`,`user_name`,`ticketnumber`,`estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`mark`,`created_date_time`) VALUES ('$user_id','$user_name','$ticketnumber[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$curent_date_time')";
+            $storing = "INSERT INTO `manage_eod_logs` (`eod_id`,`user_name`,`login_time`,`logout_time`,`remaining_time`,`complete_percentage`,`mark`,`created_date_time`,`status`) VALUES ('$user_id','$user_name','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$curent_date_time','$status[$i]')";
 
         if (mysqli_query($db, $storing)) {
             
@@ -64,16 +65,15 @@ if ($db) {
 
     else {
 
-        $store = "INSERT INTO `eodtable` (`user_id`,`user_name`,`ticketnumber`, `description`, `status`, `estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`mark`,`comments`,`is_subticket`,`main_ticket_no`,`istesting`,`iteration_no`,`created_date_time`, `date`) VALUES ('$user_id','$user_name','$ticketnumber[$i]','$description[$i]','$status[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$comments[$i]','$is_subticket','$main_ticket_no[$i]','$istesting','$iteration_no[$i]','$curent_date_time','$date')";
+        $store = "INSERT INTO `manage_eod` (`user_name`,`user_id`,`prefix`,`ticket_number`, `description`, `status`, `estimated_time`, `login_time`,`logout_time`,`remaining_time`,`complete_percentage`,`mark`,`comments`,`is_subticket`,`main_ticket_no`,`is_testing`,`iteration_no`,`created_date_time`, `date`) VALUES ('$user_name','$user_id','$prefix[$i]','$ticketnumber[$i]','$description[$i]','$status[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$comments[$i]','$is_subticket','$main_ticket_no[$i]','$istesting','$iteration_no[$i]','$curent_date_time','$date')";
 
         if (mysqli_query($db, $store)) {
             
             $success =  1;
 
-            $storing = "INSERT INTO `eodtable2` (`user_id`,`user_name`,`ticketnumber`,`estimatedtime`, `login_time`,`logout_time`,`remainingtime`,`completepercentage`,`mark`,`created_date_time`) VALUES ('$user_id','$user_name','$ticketnumber[$i]','$estimatedtime[$i]','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$curent_date_time')";
+            $storing = "INSERT INTO `manage_eod_logs` (`eod_id`,`user_name`, `login_time`,`logout_time`,`remaining_time`,`complete_percentage`,`mark`,`created_date_time`,`status`) VALUES ('$user_id','$user_name','$login_time[$i]','$logout_time[$i]','$remainingtime[$i]','$completepercentage[$i]','$mark','$curent_date_time','$status[$i]')";
 
         if (mysqli_query($db, $storing)) {
-            
             $success =  1;
         } 
 
