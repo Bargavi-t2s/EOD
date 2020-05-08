@@ -19,13 +19,15 @@ if($db)
  	$remainingtime=$i['remaining_time'];
  	$completepercentage=$i['complete_percentage'];
  	$mark=$i['mark'];
+ 	$prefix=$i['prefix'];
+ 	//print_r($prefix);
  	
  	if(true)
  	{
  		$a=$a+1;
 
  	$g="";
- 	$g.="<tr><td>$a</td><td class='ticket'>$ticketnumber</td><td>$status</td><td>$remainingtime</td><td>$completepercentage</td><td>$mark</td><td><button type='button' class='btn btn-danger edit' id='edit'>Edit</button></td><td><button type='button' class='btn btn-success view' id='view'>View</button></td></tr>";
+ 	$g.="<tr><td>$a</td><td>$prefix</td><td class='ticket'>$ticketnumber</td><td>$status</td><td>$remainingtime</td><td>$completepercentage</td><td>$mark</td><td><button type='button' class='btn btn-danger edit' id='edit'>Edit</button></td><td><button type='button' class='btn btn-success view' id='view'>View</button></td></tr>";
  	echo $g;
  }
  }

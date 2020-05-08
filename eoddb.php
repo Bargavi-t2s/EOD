@@ -14,10 +14,10 @@ date_default_timezone_set("Asia/Calcutta");
 $curent_date_time = date(" Y-m-d H:i:s");
 $user_id=1174;
 $user_name="Username";
-$prefix = "MAN";
 $date=date("Y-m-d H:i:s");
 
 if ($_POST) {
+    $prefix = ($_POST['prefix']);
     $ticketnumber       = ($_POST['ticketnumber']);
     $description        = ($_POST['description']);
     $status             = ($_POST['status']);
@@ -47,7 +47,7 @@ if ($db) {
 
         $form_fields= array('user_id' => $user_id,
                             'user_name' => $user_name,
-                            'prefix' => $prefix,
+                            'prefix' => $prefix[$i],
                             'description' => $description[$i],
                             'status' => $status[$i],
                             'estimated_time' => $estimatedtime[$i],
@@ -63,6 +63,7 @@ if ($db) {
                             'iteration_no' => $iteration_no[$i],
                             'updated_time' => $curent_date_time,
                             'date' => $date);
+
                 if($ManageEod->update($form_fields,$ticketnumber[$i]))
                     { 
                   
@@ -98,7 +99,7 @@ if ($db) {
                 $form_fields= array('user_id' => $user_id,
                             'user_name' => $user_name,
                             'ticket_number' => $ticketnumber[$i],
-                            'prefix' => $prefix,
+                            'prefix' => $prefix[$i],
                             'description' => $description[$i],
                             'status' => $status[$i],
                             'estimated_time' => $estimatedtime[$i],
@@ -112,8 +113,9 @@ if ($db) {
                             'main_ticket_no' => $main_ticket_no[$i],
                             'is_testing' => $istesting,
                             'iteration_no' => $iteration_no[$i],
-                            'updated_time' => $curent_date_time,
+                            'created_date_time' => $curent_date_time,
                             'date' => $date);
+                //print_r($form_fields);
                 if($ManageEod->insert($form_fields))
                 {
                     $success = 1;

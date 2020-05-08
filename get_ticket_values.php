@@ -16,7 +16,8 @@ if($db)
  {
 	
  	echo json_encode( array( 
- 	'description'        => ($i['description']),
+    'prefix'             => ($i['prefix']),
+ 	  'description'        => ($i['description']),
     'status'             => ($i['status']),
     'estimatedtime'      => ($i['estimated_time']),
     'login_time'         => ($i['login_time']),
