@@ -16,7 +16,6 @@
 h2
   {
     padding-bottom: 0.5em;
-
   }
 
   .radio-right
