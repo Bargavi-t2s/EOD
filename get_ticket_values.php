@@ -1,27 +1,22 @@
 <?php
-// $db_name="bartestdb"; // database name
-//    $db_user="bargavi"; // database username
-//    $db_pass="manickam"; // database password
-//    $db_host="localhost"; // 
-//    $error="";
-//    $db="";
-//    $db=mysqli_connect("$db_host","$db_user","$db_pass","$db_name");
+
 include('dbconnection.php');
+include('ManageEod.php');
+include('ManageEodLogs.php'); 
+
+$ManageEod= new ManageEod();
+$ManageEodLogs = new ManageEodLogs();
+
    if($_POST['ticketnumber'])
    {
-   	$ticketnumber = $_POST['ticketnumber'];
+    $ticketnumber = $_POST['ticketnumber'];
    }
 if($db)
  {
- 	if($ticketnumber)
- 	{
- $sql="SELECT `prefix`,`description`, `status`, `estimated_time`, `login_time`,`logout_time`,`remaining_time`,`complete_percentage`,`comments`,`is_subticket`,`main_ticket_no`,`is_testing`,`iteration_no`,`mark` from `manage_eod` WHERE `ticket_number`= '$ticketnumber';";
- $result=mysqli_query($db,$sql);
- if(mysqli_num_rows($result)>0)
+  if($ticketnumber)
+  {
+  if($i=$ManageEod->getRecordsByTicketnumber($ticketnumber))
  {
-	while($i=mysqli_fetch_assoc($result))
- {	
- 	
  	echo json_encode( array( 
     'prefix'             => ($i['prefix']),
  	  'description'        => ($i['description']),
@@ -39,13 +34,11 @@ if($db)
     'iteration_no'       => ($i['iteration_no'])));
  }
  }
-}
 else
 {
 	echo "db is empty";
 }
 }
-
 else
 {
 	echo "connection failure";

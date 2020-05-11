@@ -6,9 +6,12 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css"/>
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
       <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
       <title>T2S-EOD</title>
@@ -16,7 +19,6 @@
 h2
   {
     padding-bottom: 0.5em;
-
   }
 
   .radio-right
@@ -114,12 +116,12 @@ h2
                   <option value="NOT_STARTED">Not Started</option>
                   <option value="INITIATED">Initiated</option>
                   <option value="STARTED">Started</option>
-                  <option value="MIDDLE_LEVEL">Middle Level</option>
+                  <option value="MiddleLE_LEVEL">Middle Level</option>
                   <option value="PRIOR_REVIEW">Prior Review</option>
                   <option value="STAGE_TESTING">Stage Testing</option>
                   <option value="BUG_FIXES">Bug Fixes</option>
                   <option value="WAIT_PROD">Waiting for Production</option>
-                  <option value="PROD_TESTING">Production Testing</option><option value="PROD_TESTING">Production Testing</option>
+                  <option value="PROD_TESTING">Production Testing</option>
                   <option value="BLOCKED">BLOCKED</option>
                   <option value="DONE">Done</option>
                 </select>
@@ -201,7 +203,7 @@ h2
            <div class="form-group row">
             <div class="col-sm-6"></div>
            <div class="buttons col-sm-6">
-                <button type="button" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
+                <button type="submit" name= "submit" id="submit" class="btn btn-success mr-2">Submit</button>
                 <!-- <button type="button" name="reset" id="reset" class="btn btn-danger mr-2">Clear</button> -->
                 <!-- <button type="button" name="add_more" id="add_more" class="btn btn-warning">Add More</button> -->
                </div>
@@ -314,6 +316,8 @@ h2
 
         $(document).on('click','.edit',function(){
               console.log("inside edit");
+              $('#remainingtime1').find('option').remove();
+              $('#completepercentage1').find('option').remove();
               var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
               $.ajax({
               type: "POST",
@@ -336,7 +340,7 @@ h2
                     option = '<option value="'+i+'">' +i+ '</option>';
                     $('#remainingtime1').append(option);
                 }
-                for(var i = 0; i <=100-parseInt(result.completepercentage); i+=5)
+                for(var i = parseInt(result.completepercentage); i <=100; i+=5)
                 {   var option="";
                     option = '<option value="'+i+'">' +i+ '</option>';
                     $('#completepercentage1').append(option);
@@ -395,7 +399,7 @@ h2
                             $('#'+idname[i]).find('option').remove();
                         } 
                         $('#'+idname[1]).val("");
-                        for(var i = 0; i <=100-parseInt(response.prev_completepercentage); i+=5)
+                        for(var i = parseInt(response.prev_completepercentage); i <=100 ; i+=5)
                         {   var option="";
                             option = '<option value="'+i+'">' +i+ '</option>';
                             $('#'+idname[0]).append(option);
@@ -439,7 +443,7 @@ h2
               success: function (result) {
                 console.log("This is append success");
               $("tbody").append(result);
-              console.log(result);
+              //console.log(result);
             }
           });
             }
@@ -557,65 +561,92 @@ h2
              //     else
              //         $('#iterationdiv').delay(0).hide(0);
              // });
+$('#eodform1').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-remove',
+            validating: 'fa fa-refresh'
+        },
+        fields: {
+            'prefix[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Prefix is required.'
+                    }
+                }
+            },
+            'ticketnumber[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Ticket Number is required.'
+                    },
+                    digits: {
+                        message: 'Ticket Number can contain digits only.'
+                    }
+                }
+            },
+            'status[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Status is required.'
+                    }
+                }
+            },
+            'login_time[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Login Time is required.'
+                    }
+                }
+            },
+            'logout_time[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Logout Time is required.'
+                    }
+                }
+            },
+            'estimatedtime[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Estimated Time is required.'
+                    }
+                }
+            },
+            'remainingtime[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Remaining Time is required.'
+                    }
+                }
+            },
+            'completepercentage[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Work Completed is required.'
+                    }
+                }
+            },
+            'is_subticket[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Is it a subticket ? is required.'
+                    }
+                }
+            },
+            'istesting[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Went for Testing ? is required.'
+                    }
+                }
+            }
+        }
+    }).on('success.form.bv', function(e) {
 
-             $('#submit').click(function(e) {
-                 e.preventDefault();
-console.log("Submit is working");
-                 var mark=100;
-                 var emptymsg='';
-                 var empty=false;
-                 if($(".prefix").val()=='----------SELECT----------')
-                 {
-                  emptymsg+="Prefix is required<br>";
-                  empty=true;
-                 }
-                 if($(".ticketnumber").val()=='')
-                 {
-                  emptymsg+="Ticket Number is required<br>";
-                  empty=true;
-                 }
-                 if($(".status").val()=='----------SELECT----------')
-                 {
-                  emptymsg+="Status is required<br>";
-                  empty=true;
-                 }
-                 if($(".login_time").val()=='')
-                 {
-                  emptymsg+="Login time is required<br>";
-                  empty=true;
-                 }
-                 if($(".logout_time").val()=='')
-                 {
-                  emptymsg+="Logout time is required<br>";
-                  empty=true;
-                 }
-                 if($(".estimatedtime").val()=='')
-                 {
-                  emptymsg+="Estimated time is required<br>";
-                  empty=true;
-                 }
-                 if($(".completepercentage").val()=='')
-                 {
-                  emptymsg+="Work Completed is required<br>";
-                  empty=true;
-                 }
-                 if($('input[name=is_subticket]:checked').length==0)
-                 {
-                  emptymsg+="'Is subticket is' is required<br>";
-                  empty=true;
-                 }
-                 if($('input[name=istesting]:checked').length==0)
-                 {
-                  emptymsg+="'Went for testing' is required<br>";
-                  empty=true;
-                 }
-                 if(empty==true)
-                 {
-                  $("#error_msg").html(emptymsg);
-                  $('#error_div').show("fast");
-                  $('#error_div').delay(8000).hide(2000);
-                 }
-                 else{
+        e.preventDefault();
+
+        var mark=100;
         var prefix = $("select[name='prefix[]']").map(function(){return $(this).val();}).get();
         var ticketnumber = $("input[name='ticketnumber[]']").map(function(){return $(this).val();}).get();
         var description = $("textarea[name='description[]']").map(function(){return $(this).val();}).get();
@@ -626,11 +657,9 @@ console.log("Submit is working");
         var remainingtime = $("select[name='remainingtime[]']").map(function(){return $(this).val();}).get();
         var completepercentage = $("select[name='completepercentage[]']").map(function(){return $(this).val();}).get();
         var comments = $("textarea[name='comments[]']").map(function(){return $(this).val();}).get();
-        // var is_subticket = $("input[name='is_subticket[]']:checked").map(function(){return $(this).val();}).get();
         var is_subticket = $("input[name='is_subticket']:checked").val();
         console.log(is_subticket);
         var main_ticket_no = $("input[name='main_ticket_no[]']").map(function(){return $(this).val();}).get();
-        // var istesting = $("input[name='istesting[]']:checked").map(function(){return $(this).val();}).get();
         var istesting = $("input[name='istesting']:checked").val();
         var iteration_no = $("input[name='iteration_no[]']").map(function(){return $(this).val();}).get();
         var mark=$("#mark1").val();
@@ -659,6 +688,7 @@ console.log("Submit is working");
                      },
                      cache: false,
                      success: function(response) {
+                      console.log(response);
                       console.log("This is inside success");
                          if (response.code == "200") {
                           console.log("This is inside code 200");
@@ -689,8 +719,142 @@ console.log("Submit is working");
                          }
                      }
                  });
-               }
              });
+//              $('#submit').click(function(e) {
+//                  e.preventDefault();
+// console.log("Submit is working");
+//                  var mark=100;
+
+//                  // var emptymsg='';
+//                  // var empty=false;
+//                  // if($(".prefix").val()=='----------SELECT----------')
+//                  // {
+//                  //  emptymsg+="Prefix is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if($(".ticketnumber").val()=='')
+//                  // {
+//                  //  emptymsg+="Ticket Number is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if($(".status").val()=='----------SELECT----------')
+//                  // {
+//                  //  emptymsg+="Status is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if($(".login_time").val()=='')
+//                  // {
+//                  //  emptymsg+="Login time is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if($(".logout_time").val()=='')
+//                  // {
+//                  //  emptymsg+="Logout time is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if($(".estimatedtime").val()=='')
+//                  // {
+//                  //  emptymsg+="Estimated time is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if($(".completepercentage").val()=='')
+//                  // {
+//                  //  emptymsg+="Work Completed is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if($('input[name=is_subticket]:checked').length==0)
+//                  // {
+//                  //  emptymsg+="'Is subticket is' is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if($('input[name=istesting]:checked').length==0)
+//                  // {
+//                  //  emptymsg+="'Went for testing' is required<br>";
+//                  //  empty=true;
+//                  // }
+//                  // if(empty==true)
+//                  // {
+//                  //  $("#error_msg").html(emptymsg);
+//                  //  $('#error_div').show("fast");
+//                  //  $('#error_div').delay(8000).hide(2000);
+//                  // }
+//                  // else{
+//         var prefix = $("select[name='prefix[]']").map(function(){return $(this).val();}).get();
+//         var ticketnumber = $("input[name='ticketnumber[]']").map(function(){return $(this).val();}).get();
+//         var description = $("textarea[name='description[]']").map(function(){return $(this).val();}).get();
+//         var status = $("select[name='status[]']").map(function(){return $(this).val();}).get();
+//         var estimatedtime = $("input[name='estimatedtime[]']").map(function(){return $(this).val();}).get();
+//         var login_time = $("input[name='login_time[]']").map(function(){return $(this).val();}).get();
+//         var logout_time = $("input[name='logout_time[]']").map(function(){return $(this).val();}).get();
+//         var remainingtime = $("select[name='remainingtime[]']").map(function(){return $(this).val();}).get();
+//         var completepercentage = $("select[name='completepercentage[]']").map(function(){return $(this).val();}).get();
+//         var comments = $("textarea[name='comments[]']").map(function(){return $(this).val();}).get();
+//         // var is_subticket = $("input[name='is_subticket[]']:checked").map(function(){return $(this).val();}).get();
+//         var is_subticket = $("input[name='is_subticket']:checked").val();
+//         console.log(is_subticket);
+//         var main_ticket_no = $("input[name='main_ticket_no[]']").map(function(){return $(this).val();}).get();
+//         // var istesting = $("input[name='istesting[]']:checked").map(function(){return $(this).val();}).get();
+//         var istesting = $("input[name='istesting']:checked").val();
+//         var iteration_no = $("input[name='iteration_no[]']").map(function(){return $(this).val();}).get();
+//         var mark=$("#mark1").val();
+//         console.log(prefix);
+//                  $.ajax({
+         
+//                      type: "POST",
+//                      url: "eoddb.php",
+//                      dataType: "json",
+//                      data: {
+//                          prefix: prefix,
+//                          ticketnumber: ticketnumber,
+//                          description: description,
+//                          status: status,
+//                          estimatedtime: estimatedtime,
+//                          login_time: login_time,
+//                          logout_time: logout_time,
+//                          remainingtime: remainingtime,
+//                          completepercentage: completepercentage,
+//                          comments: comments,
+//                          is_subticket: is_subticket,
+//                          main_ticket_no: main_ticket_no,
+//                          istesting: istesting,
+//                          iteration_no: iteration_no,
+//                          mark:mark
+//                      },
+//                      cache: false,
+//                      success: function(response) {
+//                       console.log(response);
+//                       console.log("This is inside success");
+//                          if (response.code == "200") {
+//                           console.log("This is inside code 200");
+//                              if(response.error_msg) {
+//                               // console.log("This is inside success error");
+//                              $("#eodform1").trigger("reset");
+//                              $('#error_msg').html(response.error_msg);
+//                              $('#error_div').show("fast");
+//                              $('#error_div').delay(8000).hide(0);
+//                              }
+//                              else{
+//                               // console.log("This is inside success success");
+//                              $("#success_msg").html(response.message);
+//                              $("#eodform1").trigger("reset");
+//                              $(".subdiv").hide();
+//                              $(".iterationdiv").hide();
+//                              $('#success_div').show("fast");
+//                              $('#success_div').delay(8000).hide(0);
+//                               $("tbody").html("");
+//                              appendtable();
+//                              // setTimeout(location.reload.bind(location), 1000);
+//                            }
+//                          }
+//                          if (response.code == "404") {
+//                              $('#error_msg').html(response.message);
+//                              $('#error_div').show("fast");
+//                              $('#error_div').delay(8000).hide(0);
+//                          }
+//                      }
+//                  });
+//                // }
+//              });
 
             //  $(document).on('click', '.clear', function(){ 
             // console.log("inside the click function");

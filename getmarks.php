@@ -1,15 +1,16 @@
 <?php
 include('dbconnection.php');
+include('ManageEod.php');
+include('ManageEodLogs.php');
+$ManageEod= new ManageEod();
+$ManageEodLogs = new ManageEodLogs();
 
 // $marks=($_POST['marks']);
 $ticketnumber = ($_POST['ticketnumber']);
 
 if($db){
-$check = "SELECT `status`, `mark` from `manage_eod` WHERE `ticket_number`='$ticketnumber';";
-
-$result = mysqli_query($db, $check);
-    
-    $answer = mysqli_fetch_assoc($result);
+   
+    $answer = $ManageEod->getStatusbyTicketnumber($ticketnumber);
     if($answer)
 
     {	
