@@ -61,6 +61,12 @@ h2
    display:none;
   }
 
+  .has-error .help-block 
+  {
+  color: red;
+  }
+
+
 /*  .buttons
   {
     position:relative;
@@ -116,7 +122,7 @@ h2
                   <option value="NOT_STARTED">Not Started</option>
                   <option value="INITIATED">Initiated</option>
                   <option value="STARTED">Started</option>
-                  <option value="MiddleLE_LEVEL">Middle Level</option>
+                  <option value="MID_LEVEL">Middle Level</option>
                   <option value="PRIOR_REVIEW">Prior Review</option>
                   <option value="STAGE_TESTING">Stage Testing</option>
                   <option value="BUG_FIXES">Bug Fixes</option>
@@ -173,14 +179,14 @@ h2
            <div class="form-group row">
               <label for="is_subticket" class="col-sm-6">Is it Sub Ticket ?<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                 <input type="radio" value="yes" id="is_subticket_yes" class="is_subticket_radio radio" name="is_subticket" required>Yes
-                 <input type="radio" value="no" id="is_subticket_no" class="is_subticket_radio radio radio-right"  name="is_subticket">No
+                 <input type="radio" value="yes" id="is_subticket_yes" class="is_subticket_radio radio" name="is_subticket" required><label>Yes</label>
+                 <input type="radio" value="no" id="is_subticket_no" class="is_subticket_radio radio radio-right"  name="is_subticket"><label>No</label>
               </div>
             </div>
             <div class="subdiv" id="subdiv1">
               <div class="form-group row">
-                    <label for="main_ticket_no" class="col-sm-4">Main Ticket Number</label>
-                    <div class="col-sm-7">
+                    <label for="main_ticket_no" class="col-sm-6">Main Ticket Number</label>
+                    <div class="col-sm-6">
                         <input type="text" class="form-control" id="main_ticket_no1" name="main_ticket_no[]">
                     </div>
                 </div>
@@ -188,13 +194,13 @@ h2
             <div class="form-group row">
               <label for="istesting" class="col-sm-6">Went for Testing ?<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                 <input type="radio" value="yes" id="istesting_yes" class="testing_radio radio" name="istesting" required>Yes
-                 <input type="radio" value="no" id="istesting_no" class="testing_radio radio radio-right"  name="istesting">No
+                 <input type="radio" value="yes" id="istesting_yes" class="testing_radio radio" name="istesting" required><label>Yes</label>
+                 <input type="radio" value="no" id="istesting_no" class="testing_radio radio radio-right"  name="istesting"><label>No</label>
               </div>
            </div>
            <div id="iterationdiv1" class="iterationdiv">
               <div class="form-group row">
-                 <label for="iteration_no" class="col-sm-4">Iteration Number</label>
+                 <label for="iteration_no" class="col-sm-6">Iteration Number</label>
                  <div class="col-sm-2">
                     <input type="number" class="form-control" min='1' id="iteration_no1" name="iteration_no[]">
                  </div>
@@ -316,8 +322,12 @@ h2
 
         $(document).on('click','.edit',function(){
               console.log("inside edit");
+              $("#eodform1").trigger("reset");
+              $(".subdiv").hide();
+              $(".iterationdiv").hide();
               $('#remainingtime1').find('option').remove();
               $('#completepercentage1').find('option').remove();
+              $("#eodform1").bootstrapValidator('resetForm', true);
               var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
               $.ajax({
               type: "POST",
@@ -519,15 +529,15 @@ h2
              var form_time=1;
              var add_count=0;
 
-             $(document).on("keyup", ".ticketnumber",function(){
-              $(".text-danger").hide();
-              var numpattern=/^([0-9]*)$/;
-              var ticketno=$(this).val();
-              if(!numpattern.test(ticketno))
-              {
-                $(this).after('<span class="text-danger">Only numbers are allowed.</span>');
-              }
-             });
+             // $(document).on("keyup", ".ticketnumber",function(){
+             //  $(".text-danger").hide();
+             //  var numpattern=/^([0-9]*)$/;
+             //  var ticketno=$(this).val();
+             //  if(!numpattern.test(ticketno))
+             //  {
+             //    $(this).after('<span class="text-danger">Only numbers are allowed.</span>');
+             //  }
+             // });
 
             //  $('#add_more').click(function(e){
             //   add_count++;
@@ -578,10 +588,10 @@ $('#eodform1').bootstrapValidator({
             'ticketnumber[]': {
                 validators: {
                     notEmpty: {
-                        message: 'Ticket Number is required.'
+                        message: 'Ticket Number is required.<br>'
                     },
                     digits: {
-                        message: 'Ticket Number can contain digits only.'
+                        message: 'Ticket Number can contain digits only.<br>'
                     }
                 }
             },
@@ -705,9 +715,12 @@ $('#eodform1').bootstrapValidator({
                              $("#eodform1").trigger("reset");
                              $(".subdiv").hide();
                              $(".iterationdiv").hide();
+                             $("#completepercentage1").find('option').remove();
+                             $("#remainingtime1").find('option').remove();
                              $('#success_div').show("fast");
                              $('#success_div').delay(8000).hide(0);
-                              $("tbody").html("");
+                             $("#eodform1").bootstrapValidator('resetForm', true);
+                             $("tbody").html("");
                              appendtable();
                              // setTimeout(location.reload.bind(location), 1000);
                            }
