@@ -89,7 +89,7 @@ h2
               <label for="prefix" class="col-sm-6">Prefix<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
                 <select class="form-control prefix" id="prefix1" name="prefix[]" autofocus>
-                  <option value="----------SELECT----------">----------SELECT----------</option>
+                  <option></option>
                   <option value="MAN">MAN</option>
                   <option value="API">API</option>
                   <option value="CHECK">CHECK</option>
@@ -112,7 +112,7 @@ h2
               <label for="status" class="col-sm-6">Status<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
                 <select class="form-control status" id="status1" onblur="getmarks()" name="status[]">
-                  <option value="----------SELECT----------">----------SELECT----------</option>
+                  <option></option>
                   <option value="NOT_STARTED">Not Started</option>
                   <option value="INITIATED">Initiated</option>
                   <option value="STARTED">Started</option>
@@ -563,8 +563,8 @@ h2
              // });
 $('#eodform1').bootstrapValidator({
         feedbackIcons: {
-            valid: 'fa fa-check',
-            invalid: 'fa fa-remove',
+            valid: 'fa fa-check text-success',
+            invalid: 'fa fa-remove text-danger',
             validating: 'fa fa-refresh'
         },
         fields: {
