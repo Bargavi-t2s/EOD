@@ -17,7 +17,6 @@ if($db)
   {
   if($i=$ManageEod->getRecordsByTicketnumber($ticketnumber))
  {
- 	
  	echo json_encode( array( 
     'prefix'             => ($i['prefix']),
  	  'description'        => ($i['description']),
@@ -35,13 +34,11 @@ if($db)
     'iteration_no'       => ($i['iteration_no'])));
  }
  }
-}
 else
 {
 	echo "db is empty";
 }
 }
-
 else
 {
 	echo "connection failure";
