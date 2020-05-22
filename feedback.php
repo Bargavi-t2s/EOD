@@ -102,7 +102,7 @@
   #ratinglabel
   {
     position:relative;
-    top:1.4rem;
+    top:2.6rem;
   }
 
     </style>
@@ -294,6 +294,7 @@
                       console.log(response.message);
                       if(response.code=="200")
                       {
+                        $(".T2S-Feedback").trigger("reset");
                         $("#success_msg").html(response.message);
                         $('#success_div').show("fast");
                         $('#success_div').delay(5000).hide(0);
