@@ -27,7 +27,7 @@ if($db)
  		$a=$a+1;
 
  	$g="";
- 	$g.="<tr><td>$a</td><td>$prefix</td><td class='ticket'>$ticketnumber</td><td>$status</td><td>$remainingtime</td><td>$completepercentage</td><td>$mark</td><td><button type='button' class='btn btn-danger edit' id='edit'>Edit</button></td><td><button type='button' class='btn btn-success view' id='view'>View</button></td><td><a href='feedback.php' target='_blank'><button  class='btn btn-primary feedbackbutton' id='feedbackbutton'>Feedback</button></a></td></tr>";
+ 	$g.="<tr><td>$a</td><td>$prefix</td><td class='ticket'>$ticketnumber</td><td>$status</td><td>$remainingtime</td><td>$completepercentage</td><td>$mark</td><td><button type='button' class='btn btn-danger edit' id='edit'>Edit</button></td><td><button type='button' class='btn btn-success view' id='view'>View</button></td><td><button type='button' class='btn btn-primary feedbackbutton' id='feedbackbutton'>Feedback</button></td></tr>";
  	echo $g;
  }
  }

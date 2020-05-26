@@ -125,18 +125,19 @@
         <div class="form-group row">
               <label for="prefix" class="col-sm-6">Prefix<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                <select class="form-control prefix" id="prefix" name="prefix" autofocus>
+                <input type ="text" class="form-control prefix" id="prefix" name="prefix" readonly>
+                <!-- <select class="form-control prefix" id="prefix" name="prefix" autofocus>
                   <option></option>
                   <option value="MAN">MAN</option>
                   <option value="API">API</option>
                   <option value="CHECK">CHECK</option>
-                </select>
+                </select> -->
               </div>
            </div>
         <div class="form-group row">
               <label for="ticketnumber" class="col-sm-6">Ticket MS-<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                 <input type="text" class="form-control ticketnumber" name="ticketnumber" id="ticketnumber" pattern="([0-9]+)" title="Only numbers are accepeted" placeholder="Ticket Number"required>
+                 <input type="text" class="form-control ticketnumber" name="ticketnumber" id="ticketnumber" pattern="([0-9]+)" title="Only numbers are accepeted" placeholder="Ticket Number" readonly>
               </div>
             </div>
           <div class="form-group row">
@@ -200,6 +201,26 @@
     </div>
     <script type="text/javascript">
       var userRating ="";
+      var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+
+var pre = getUrlParameter('prefix');
+var tick = getUrlParameter('ticketnumber');
+ $('#prefix').val(pre);
+ $('#ticketnumber').val(tick);
+
 
       $(document).ready(function(){
 

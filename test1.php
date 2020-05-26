@@ -273,6 +273,14 @@ h2
 
       <script type="text/javascript">
 
+        $(document).on('click','.feedbackbutton',function(){
+
+          console.log("inside feedbackbutton");
+          var prefix = $(this).closest('tr').find('td:eq(1)').text();
+          var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
+          window.open("feedback.php?prefix="+prefix+"&ticketnumber="+ticketnumber+"");
+        });
+
         $(document).on('click','.view',function(){
               console.log("inside view");
               var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
