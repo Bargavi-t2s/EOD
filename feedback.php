@@ -3,6 +3,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -108,6 +109,8 @@
     </style>
   </head>
   <body>
+<div class="row">
+
     <div class="container col-sm-6 mt-4 p-0 ml-4 border border-dark">
          <div class="jumbotron m-1 py-1">
           <div class="jumbotron m-1 py-1">
@@ -144,7 +147,7 @@
               <label for="star_rating" class="col-sm-6" id="ratinglabel">Work Rating<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
             <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-</div>
+            </div>
          </div>
            </div>
 
@@ -208,7 +211,40 @@
       </form>
       
     </div>
+  </div>
     </div>
+
+    <div class="container col-sm-5 mt-4 p-0 ml-4 border border-dark">
+          <div class="jumbotron m-1 py-1">
+            <div class="table-responsive">
+               <table class="table table-hover" id ="mytable">
+                  <thead>
+                     <tr>
+                        
+                        <th>TITLE</th>
+                        <th>DETAILS</th>
+                        
+                     </tr>
+                  </thead>
+                  <tbody id="tablebody">
+
+                   <tr><td>Description</td><td id="description"></td></tr>
+                   <tr><td>Mark</td><td id="mark"></td></tr>
+                   <tr><td>Status</td><td id="status2"></td></tr>
+                   <tr><td>Estimated Time</td><td id="estimatedtime"></td></tr>
+                   <tr><td>Remaining Time</td><td id="remainingtime"></td></tr>
+                   <tr><td>Completed percentage</td><td id="completepercentage"></td></tr>
+                   <tr><td>Comments</td><td id="comments2"></td></tr>
+                   
+                  </tbody>
+               </table>
+            </div>
+        </div>
+      </div>
+
+  
+</div>
+
     <script type="text/javascript">
       var userRating ="";
       var getUrlParameter = function getUrlParameter(sParam) {
@@ -227,15 +263,45 @@
 };
 
 
-var pre = getUrlParameter('prefix');
-var tick = getUrlParameter('ticketnumber');
- $('#prefix').val(pre);
- $('#ticketnumber').val(tick);
+
+
+
+
+
+  
+
+ 
 
 
       $(document).ready(function(){
+        var pre = getUrlParameter('prefix');
+var tick = getUrlParameter('ticketnumber');
+ $('#prefix').val(pre);
+ $('#ticketnumber').val(tick);
+        console.log("inside the ajax");
 
-         
+        console.log(tick);
+         $.ajax({
+              type: "POST",
+              url: "get_ticket_values.php",
+              cache: false,
+              dataType: "json",
+              data: { ticketnumber:tick },
+              success: function (result) {
+                console.log(result);
+                console.log("This is inside view success");
+                
+                $("#description").text(result.description); 
+                $("#mark").text(result.mark);
+                $("#status2").text(result.status);
+                $("#comments2").text(result.comments);
+                $("#estimatedtime").text(result.estimatedtime);
+                $("#remainingtime").text(result.remainingtime);
+                $("#completepercentage").text(result.completepercentage);
+                           
+                  
+        }
+      });
     // Check Radio-box
     $(".rating input:radio").attr("checked", false);
 
@@ -355,7 +421,6 @@ var tick = getUrlParameter('ticketnumber');
                  });
              });
     
-
     </script>
 
     <!-- Optional JavaScript -->
