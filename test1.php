@@ -167,7 +167,7 @@ h2
            <div class="form-group row">
           <label for="mark" class="col-sm-6">Mark</label>
               <div class="col-sm-4">
-                    <input type="text" class="form-control" name="mark" id="mark1" required>
+                    <input type="text" class="form-control" name="mark" id="mark1" readonly>
               </div>
            </div>
             <div class="form-group row">
@@ -227,15 +227,16 @@ h2
                <table class="table table-hover" id ="mytable">
                   <thead>
                      <tr>
-                        <th >SI No.</th>
-                        <th >Prefix</th>
+                        <th>SI No.</th>
+                        <th>Prefix</th>
                         <th>Ticket No.</th>
-                        <th >Status</th>
+                        <th>Status</th>
                         <th >Remaining Time</th>
                         <th >Work Completed</th>
                         <th >Mark</th>
                         <th> Edit</th>
                         <th> View </th>
+                        <th> Feedback </th>
                      </tr>
                   </thead>
                   <tbody id="tablebody">
@@ -271,6 +272,14 @@ h2
 </div>
 
       <script type="text/javascript">
+
+        $(document).on('click','.feedbackbutton',function(){
+
+          console.log("inside feedbackbutton");
+          var prefix = $(this).closest('tr').find('td:eq(1)').text();
+          var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
+          window.open("feedback.php?prefix="+prefix+"&ticketnumber="+ticketnumber+"");
+        });
 
         $(document).on('click','.view',function(){
               console.log("inside view");
@@ -637,17 +646,17 @@ $('#eodform1').bootstrapValidator({
                     }
                 }
             },
-            'is_subticket[]': {
+            is_subticket: {
                 validators: {
                     notEmpty: {
-                        message: 'Is it a subticket ? is required.'
+                        message: '<br>Is it a subticket ? is required.'
                     }
                 }
             },
-            'istesting[]': {
+            istesting: {
                 validators: {
                     notEmpty: {
-                        message: 'Went for Testing ? is required.'
+                        message: '<br>Went for Testing ? is required.'
                     }
                 }
             }
@@ -733,148 +742,6 @@ $('#eodform1').bootstrapValidator({
                      }
                  });
              });
-//              $('#submit').click(function(e) {
-//                  e.preventDefault();
-// console.log("Submit is working");
-//                  var mark=100;
-
-//                  // var emptymsg='';
-//                  // var empty=false;
-//                  // if($(".prefix").val()=='----------SELECT----------')
-//                  // {
-//                  //  emptymsg+="Prefix is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if($(".ticketnumber").val()=='')
-//                  // {
-//                  //  emptymsg+="Ticket Number is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if($(".status").val()=='----------SELECT----------')
-//                  // {
-//                  //  emptymsg+="Status is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if($(".login_time").val()=='')
-//                  // {
-//                  //  emptymsg+="Login time is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if($(".logout_time").val()=='')
-//                  // {
-//                  //  emptymsg+="Logout time is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if($(".estimatedtime").val()=='')
-//                  // {
-//                  //  emptymsg+="Estimated time is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if($(".completepercentage").val()=='')
-//                  // {
-//                  //  emptymsg+="Work Completed is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if($('input[name=is_subticket]:checked').length==0)
-//                  // {
-//                  //  emptymsg+="'Is subticket is' is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if($('input[name=istesting]:checked').length==0)
-//                  // {
-//                  //  emptymsg+="'Went for testing' is required<br>";
-//                  //  empty=true;
-//                  // }
-//                  // if(empty==true)
-//                  // {
-//                  //  $("#error_msg").html(emptymsg);
-//                  //  $('#error_div').show("fast");
-//                  //  $('#error_div').delay(8000).hide(2000);
-//                  // }
-//                  // else{
-//         var prefix = $("select[name='prefix[]']").map(function(){return $(this).val();}).get();
-//         var ticketnumber = $("input[name='ticketnumber[]']").map(function(){return $(this).val();}).get();
-//         var description = $("textarea[name='description[]']").map(function(){return $(this).val();}).get();
-//         var status = $("select[name='status[]']").map(function(){return $(this).val();}).get();
-//         var estimatedtime = $("input[name='estimatedtime[]']").map(function(){return $(this).val();}).get();
-//         var login_time = $("input[name='login_time[]']").map(function(){return $(this).val();}).get();
-//         var logout_time = $("input[name='logout_time[]']").map(function(){return $(this).val();}).get();
-//         var remainingtime = $("select[name='remainingtime[]']").map(function(){return $(this).val();}).get();
-//         var completepercentage = $("select[name='completepercentage[]']").map(function(){return $(this).val();}).get();
-//         var comments = $("textarea[name='comments[]']").map(function(){return $(this).val();}).get();
-//         // var is_subticket = $("input[name='is_subticket[]']:checked").map(function(){return $(this).val();}).get();
-//         var is_subticket = $("input[name='is_subticket']:checked").val();
-//         console.log(is_subticket);
-//         var main_ticket_no = $("input[name='main_ticket_no[]']").map(function(){return $(this).val();}).get();
-//         // var istesting = $("input[name='istesting[]']:checked").map(function(){return $(this).val();}).get();
-//         var istesting = $("input[name='istesting']:checked").val();
-//         var iteration_no = $("input[name='iteration_no[]']").map(function(){return $(this).val();}).get();
-//         var mark=$("#mark1").val();
-//         console.log(prefix);
-//                  $.ajax({
-         
-//                      type: "POST",
-//                      url: "eoddb.php",
-//                      dataType: "json",
-//                      data: {
-//                          prefix: prefix,
-//                          ticketnumber: ticketnumber,
-//                          description: description,
-//                          status: status,
-//                          estimatedtime: estimatedtime,
-//                          login_time: login_time,
-//                          logout_time: logout_time,
-//                          remainingtime: remainingtime,
-//                          completepercentage: completepercentage,
-//                          comments: comments,
-//                          is_subticket: is_subticket,
-//                          main_ticket_no: main_ticket_no,
-//                          istesting: istesting,
-//                          iteration_no: iteration_no,
-//                          mark:mark
-//                      },
-//                      cache: false,
-//                      success: function(response) {
-//                       console.log(response);
-//                       console.log("This is inside success");
-//                          if (response.code == "200") {
-//                           console.log("This is inside code 200");
-//                              if(response.error_msg) {
-//                               // console.log("This is inside success error");
-//                              $("#eodform1").trigger("reset");
-//                              $('#error_msg').html(response.error_msg);
-//                              $('#error_div').show("fast");
-//                              $('#error_div').delay(8000).hide(0);
-//                              }
-//                              else{
-//                               // console.log("This is inside success success");
-//                              $("#success_msg").html(response.message);
-//                              $("#eodform1").trigger("reset");
-//                              $(".subdiv").hide();
-//                              $(".iterationdiv").hide();
-//                              $('#success_div').show("fast");
-//                              $('#success_div').delay(8000).hide(0);
-//                               $("tbody").html("");
-//                              appendtable();
-//                              // setTimeout(location.reload.bind(location), 1000);
-//                            }
-//                          }
-//                          if (response.code == "404") {
-//                              $('#error_msg').html(response.message);
-//                              $('#error_div').show("fast");
-//                              $('#error_div').delay(8000).hide(0);
-//                          }
-//                      }
-//                  });
-//                // }
-//              });
-
-            //  $(document).on('click', '.clear', function(){ 
-            // console.log("inside the click function");
-            //     var form_id = $(this).closest('.eodform').attr('id');  
-            //     console.log(form_id);              
-            //     $('#'+form_id).trigger("reset");
-            // });
          });
       </script>
    </body>

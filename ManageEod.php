@@ -14,7 +14,15 @@ class ManageEod
         $this->readConn = $db;
         $this->table = "manage_eod";
 	}
-	
+
+	public function getTicketnumber($ticketnumber)
+    {
+        $sql = "SELECT `ticketnumber` FROM " . $this->table ."  WHERE ticket_number=".$ticketnumber." ;" ;
+        $result = mysqli_query( $this->readConn,$sql);
+        $result = mysqli_fetch_assoc($result);
+        return $result;
+    }
+
     public function getRecordForUpdateTable()
     {
         $sql="SELECT `prefix`,`ticket_number`,`status`,`remaining_time`,`complete_percentage`,`mark` from `" . $this->table ."` ORDER BY `date` DESC LIMIT 15;";
