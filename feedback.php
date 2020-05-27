@@ -165,16 +165,16 @@
            <div class="form-group row">
               <label for="Reason" class="col-sm-6">Reason<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                <input type="checkbox" name="reason" value="Repeated Same code error">Repeated Same code error<br>
-                <input type="checkbox" name="reason" value="Code standard Not good">Code standard Not good<br>
-                <input type="checkbox" name="reason" value="Inconsistency of the flow">Inconsistency of the flow<br>
-                <input type="checkbox" name="reason" value="Syntax Errors in code">Syntax Errors in code<br>
-                <input type="checkbox" name="reason" value="Communication is not good">Communication is not good<br>
-                <input type="checkbox" name="reason" value="Didn't understand Logic">Didn't understand Logic<br>
-                <input type="checkbox" name="reason" value="Production got affected">Production got affected<br>
-                <input type="checkbox" name="reason" value="Taken long time to complete">Taken long time to complete<br>
-                <input type="checkbox" name="reason" value="More sent backs from testing">More sent backs from testing<br>
-                <input type="checkbox" name="reason" value="quality is not good">quality is not good<br>
+                <input class="h3" type="checkbox" name="reason" value="Repeated same code error"> Repeated Same code error<br>
+                <input class="h3" type="checkbox" name="reason" value="Code standard not good"> Code standard Not good<br>
+                <input class="h3" type="checkbox" name="reason" value="Inconsistency of the flow"> Inconsistency of the flow<br>
+                <input class="h3" type="checkbox" name="reason" value="Syntax errors in code"> Syntax Errors in code<br>
+                <input class="h3" type="checkbox" name="reason" value="Communication is not good"> Communication is not good<br>
+                <input class="h3" type="checkbox" name="reason" value="Didn't understand logic"> Didn't understand Logic<br>
+                <input class="h3" type="checkbox" name="reason" value="Production"> Production got affected<br>
+                <input class="h3" type="checkbox" name="reason" value="Taken long time to complete"> Taken long time to complete<br>
+                <input class="h3" type="checkbox" name="reason" value="More sent backs from testing"> More sent backs from testing<br>
+                <input class="h3" type="checkbox" name="reason" value="Quality is not good"> Quality is not good<br>
                 <!-- <select class="form-control status" id="reason" name="reason">
                   <option></option>
                   <option value="REPEATED SAME CODE ERROR">Repeated Same code error</option>
@@ -301,11 +301,12 @@ var tick = getUrlParameter('ticketnumber');
     }).on('success.form.bv', function(e) {
 
         e.preventDefault();
-        var reason=[];
+        var reason="";
         
         $('input[name="reason"]:checked').each(function() {
           
-          reason.push(this.value);
+          //reason.push(this.value);
+          reason+=this.value+", ";
           
           });
 
@@ -341,7 +342,8 @@ var tick = getUrlParameter('ticketnumber');
                         $(".T2S-Feedback").trigger("reset");
                         $("#success_msg").html(response.message);
                         $('#success_div').show("fast");
-                        $('#success_div').delay(5000).hide(0);
+                        $('#success_div').delay(5000).hide(0);$("#eodform1").bootstrapValidator('resetForm', true);
+                        $("#feedbackform").bootstrapValidator('resetForm', true);
                       }
                       else if(response.code=="400")
                       {

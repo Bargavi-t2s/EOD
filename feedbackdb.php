@@ -52,31 +52,6 @@ else{
     'message'=> 'Specified Ticket does not exist !'
          ]);
      }
-//     $success=0;
-//                 $form_fields= array(
-//                             'prefix' => $prefix,
-//                             'ticket_number' => $ticketnumber,
-//                             'star_rating' => $rating,
-//                             'status' => $status,
-//                             'reason' => $reason,
-//                             'comments' => $comments);
-//                 if($ManageFeedback->insert($form_fields))
-//                 {
-//                     $success = 1;
-//                 } 
-//                 ob_end_clean(); 
-// if($success === 1){
-//     echo json_encode([
-//        'code' => 200,
-//     'message'=> 'You have successfully submitted your feedback'
-//          ]);
-// }
-// else{
-//     echo json_encode([
-//        'code' => 400,
-//     'message'=> 'Data Insertion Failed !'
-//          ]);
-// }
 }
 else 
 {
