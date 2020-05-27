@@ -165,7 +165,17 @@
            <div class="form-group row">
               <label for="Reason" class="col-sm-6">Reason<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                <select class="form-control status" id="reason" name="reason">
+                <input type="checkbox" name="reason" value="Repeated Same code error">Repeated Same code error<br>
+                <input type="checkbox" name="reason" value="Code standard Not good">Code standard Not good<br>
+                <input type="checkbox" name="reason" value="Inconsistency of the flow">Inconsistency of the flow<br>
+                <input type="checkbox" name="reason" value="Syntax Errors in code">Syntax Errors in code<br>
+                <input type="checkbox" name="reason" value="Communication is not good">Communication is not good<br>
+                <input type="checkbox" name="reason" value="Didn't understand Logic">Didn't understand Logic<br>
+                <input type="checkbox" name="reason" value="Production got affected">Production got affected<br>
+                <input type="checkbox" name="reason" value="Taken long time to complete">Taken long time to complete<br>
+                <input type="checkbox" name="reason" value="More sent backs from testing">More sent backs from testing<br>
+                <input type="checkbox" name="reason" value="quality is not good">quality is not good<br>
+                <!-- <select class="form-control status" id="reason" name="reason">
                   <option></option>
                   <option value="REPEATED SAME CODE ERROR">Repeated Same code error</option>
                   <option value="CODE STANDARD NOT GOOD">Code standard Not good</option>
@@ -178,7 +188,7 @@
                   <option value="MORE SENT BACKS FROM TESTING">More sent backs from testing</option>
                   <option value="QUALITY IS NOT GOOD">quality is not good</option>
                   
-                </select>
+                </select> -->
               </div>
            </div>
            <div class="form-group row">
@@ -215,6 +225,7 @@
         }
     }
 };
+
 
 var pre = getUrlParameter('prefix');
 var tick = getUrlParameter('ticketnumber');
@@ -290,13 +301,25 @@ var tick = getUrlParameter('ticketnumber');
     }).on('success.form.bv', function(e) {
 
         e.preventDefault();
+        var reason=[];
+        
+        $('input[name="reason"]:checked').each(function() {
+          
+          reason.push(this.value);
+          
+          });
 
-        var prefix = $("select[name='prefix']").val();
+        var prefix = $("input[name='prefix']").val();
         var ticketnumber = $("input[name='ticketnumber']").val();
         var rating = userRating;
         var status = $("select[name='status']").val();
-        var reason = $("select[name='reason']").val();
+
+        //var reason = $("select[name='reason']").val();
         var comments = $("textarea[name='comments']").val();
+        
+        console.log(prefix,ticketnumber,rating, status, reason, comments);
+
+                 
                  $.ajax({
                      type: "POST",
                      url: "feedbackdb.php",

@@ -227,10 +227,10 @@ h2
                <table class="table table-hover" id ="mytable">
                   <thead>
                      <tr>
-                        <th >SI No.</th>
-                        <th >Prefix</th>
+                        <th>SI No.</th>
+                        <th>Prefix</th>
                         <th>Ticket No.</th>
-                        <th >Status</th>
+                        <th>Status</th>
                         <th >Remaining Time</th>
                         <th >Work Completed</th>
                         <th >Mark</th>
