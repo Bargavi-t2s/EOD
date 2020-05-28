@@ -3,7 +3,6 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -106,14 +105,18 @@
     top:2.6rem;
   }
 
+  .form-check-input
+  {
+    position: relative;
+    top:0.1rem;
+  }
+
     </style>
   </head>
-  <body>
-<div class="row">
-
+    <body>
+      <div class="row">
     <div class="container col-sm-6 mt-4 p-0 ml-4 border border-dark">
          <div class="jumbotron m-1 py-1">
-          <div class="jumbotron m-1 py-1">
           <div id="success_div" class="alert alert-success alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <h4 id="success_msg"></h4>
@@ -129,12 +132,6 @@
               <label for="prefix" class="col-sm-6">Prefix<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
                 <input type ="text" class="form-control prefix" id="prefix" name="prefix" readonly>
-                <!-- <select class="form-control prefix" id="prefix" name="prefix" autofocus>
-                  <option></option>
-                  <option value="MAN">MAN</option>
-                  <option value="API">API</option>
-                  <option value="CHECK">CHECK</option>
-                </select> -->
               </div>
            </div>
         <div class="form-group row">
@@ -143,11 +140,23 @@
                  <input type="text" class="form-control ticketnumber" name="ticketnumber" id="ticketnumber" pattern="([0-9]+)" title="Only numbers are accepeted" placeholder="Ticket Number" readonly>
               </div>
             </div>
+            <div class="form-group row">
+          <label for="mark" class="col-sm-6">Mark</label>
+              <div class="col-sm-6">
+                    <input type="text" class="form-control" name="mark" id="mark" readonly>
+              </div>
+           </div>
+           <div class="form-group row">
+              <label for="description" class="col-sm-6">Description</label>
+              <div class="col-sm-6">
+                 <textarea class="form-control" cols="15" rows="6" name="description" id="description" placeholder="Description" readonly></textarea>
+                </div>
+            </div>
           <div class="form-group row">
               <label for="star_rating" class="col-sm-6" id="ratinglabel">Work Rating<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
             <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-            </div>
+</div>
          </div>
            </div>
 
@@ -164,36 +173,51 @@
                 </select>
               </div>
            </div>
-
            <div class="form-group row">
-              <label for="Reason" class="col-sm-6">Reason<span class="star" style="color:red">*</span></label>
+              <label class="col-sm-6">Reason<span class="star" style="color:red">*</span></label>
               <div class="col-sm-6">
-                <input class="h3" type="checkbox" name="reason" value="Repeated same code error"> Repeated Same code error<br>
-                <input class="h3" type="checkbox" name="reason" value="Code standard not good"> Code standard Not good<br>
-                <input class="h3" type="checkbox" name="reason" value="Inconsistency of the flow"> Inconsistency of the flow<br>
-                <input class="h3" type="checkbox" name="reason" value="Syntax errors in code"> Syntax Errors in code<br>
-                <input class="h3" type="checkbox" name="reason" value="Communication is not good"> Communication is not good<br>
-                <input class="h3" type="checkbox" name="reason" value="Didn't understand logic"> Didn't understand Logic<br>
-                <input class="h3" type="checkbox" name="reason" value="Production"> Production got affected<br>
-                <input class="h3" type="checkbox" name="reason" value="Taken long time to complete"> Taken long time to complete<br>
-                <input class="h3" type="checkbox" name="reason" value="More sent backs from testing"> More sent backs from testing<br>
-                <input class="h3" type="checkbox" name="reason" value="Quality is not good"> Quality is not good<br>
-                <!-- <select class="form-control status" id="reason" name="reason">
-                  <option></option>
-                  <option value="REPEATED SAME CODE ERROR">Repeated Same code error</option>
-                  <option value="CODE STANDARD NOT GOOD">Code standard Not good</option>
-                  <option value="INCONSISTENCY OF THE FLOW">Inconsistency of the flow</option>
-                  <option value="SYNTAX ERRORS IN CODE">Syntax Errors in code</option>
-                  <option value="COMMUNICATION IS NOT GOOD">Communication is not good</option>
-                  <option value="DID NOT UNDERSTAND LOGIC">Didn't understand Logic</option>
-                  <option value="PRODUCTION GOT AFFECTED">Production got affected</option>
-                  <option value="TAKEN LONG TIME TO COMPLETE">Taken long time to complete</option>
-                  <option value="MORE SENT BACKS FROM TESTING">More sent backs from testing</option>
-                  <option value="QUALITY IS NOT GOOD">quality is not good</option>
-                  
-                </select> -->
+                <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Repeated same code error" id="check1">
+                <label class="form-check-label" for="check1">Repeated Same Code Error</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Code standard not good" id="check2">
+                <label class="form-check-label" for="check2">Code Standard Not Good</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Inconsistency of the flow" id="check3">
+                <label class="form-check-label" for="check3">Inconsistency of the Flow</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Syntax errors in code" id="check4">
+                <label class="form-check-label" for="check4">Syntax Errors in Code</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Communication is not good" id="check5">
+                <label class="form-check-label" for="check5">Communication is Not Good</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Didn't understand logic" id="check6">
+                <label class="form-check-label" for="check6">Didn't Understand Logic</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Production got affected" id="check7">
+                <label class="form-check-label" for="check7">Production got Affected</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Taken long time to complete" id="check8">
+                <label class="form-check-label" for="check8">Taken Long Time to Complete</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="More sent backs from testing" id="check9">
+                <label class="form-check-label" for="check9">More Sent Backs from Testing</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="Quality is not good" id="check10">
+                <label class="form-check-label" for="check10">Quality is Not Good</label> 
               </div>
            </div>
+         </div>
            <div class="form-group row">
               <label for="comments" class="col-sm-6">Comments</label>
               <div class="col-sm-6">
@@ -211,10 +235,8 @@
       </form>
       
     </div>
-  </div>
     </div>
-
-    <div class="container col-sm-5 mt-4 p-0 ml-4 border border-dark">
+<div class="container col-sm-5 mt-4 p-0 ml-4 border border-dark">
           <div class="jumbotron m-1 py-1">
             <div class="table-responsive">
                <table class="table table-hover" id ="mytable">
@@ -228,8 +250,8 @@
                   </thead>
                   <tbody id="tablebody">
 
-                   <tr><td>Description</td><td id="description"></td></tr>
-                   <tr><td>Mark</td><td id="mark"></td></tr>
+                   <!-- <tr><td>Description</td><td id="description"></td></tr>
+                   <tr><td>Mark</td><td id="mark"></td></tr> -->
                    <tr><td>Status</td><td id="status2"></td></tr>
                    <tr><td>Estimated Time</td><td id="estimatedtime"></td></tr>
                    <tr><td>Remaining Time</td><td id="remainingtime"></td></tr>
@@ -241,10 +263,7 @@
             </div>
         </div>
       </div>
-
-  
-</div>
-
+    </div>
     <script type="text/javascript">
       var userRating ="";
       var getUrlParameter = function getUrlParameter(sParam) {
@@ -263,22 +282,39 @@
 };
 
 
+var pre = getUrlParameter('prefix');
+var tick = getUrlParameter('ticketnumber');
+ $('#prefix').val(pre);
+ $('#ticketnumber').val(tick);
 
-
-
-
-
-  
-
- 
-
+// function getfeedbackdetails()
+// {
+//   var prefix= pre;
+//   var ticketno=tick;
+//   console.log(ticketno);
+//                   $.ajax({
+//                      type: "POST",
+//                      url: "getfeedbackdetails.php",
+//                      dataType: "json",
+//                      data: {
+//                          prefix      : prefix,
+//                          ticketnumber: ticketnumber 
+//                      },
+//                      cache: false,
+//                      success: function(response) {
+//                       console.log(response);
+//                       $("#mark").val(response.mark);
+//                       $("#description").val(response.description);
+//                      }
+//                  });
+// }
 
       $(document).ready(function(){
+
         var pre = getUrlParameter('prefix');
 var tick = getUrlParameter('ticketnumber');
  $('#prefix').val(pre);
  $('#ticketnumber').val(tick);
-        console.log("inside the ajax");
 
         console.log(tick);
          $.ajax({
@@ -286,22 +322,22 @@ var tick = getUrlParameter('ticketnumber');
               url: "get_ticket_values.php",
               cache: false,
               dataType: "json",
-              data: { ticketnumber:tick },
+              data: { 
+                ticketnumber:tick,
+                prefix      :pre 
+                    },
               success: function (result) {
                 console.log(result);
                 console.log("This is inside view success");
-                
-                $("#description").text(result.description); 
-                $("#mark").text(result.mark);
+                $("#description").val(result.description); 
+                $("#mark").val(result.mark);
                 $("#status2").text(result.status);
                 $("#comments2").text(result.comments);
                 $("#estimatedtime").text(result.estimatedtime);
                 $("#remainingtime").text(result.remainingtime);
                 $("#completepercentage").text(result.completepercentage);
-                           
-                  
         }
-      });
+      });        
     // Check Radio-box
     $(".rating input:radio").attr("checked", false);
 
@@ -316,9 +352,7 @@ var tick = getUrlParameter('ticketnumber');
         //alert(userRating);
     }); 
 
-    });
-
-      $('#feedbackform').bootstrapValidator({
+$('#feedbackform').bootstrapValidator({
         feedbackIcons: {
             valid: 'fa fa-check text-success',
             invalid: 'fa fa-remove text-danger',
@@ -380,12 +414,7 @@ var tick = getUrlParameter('ticketnumber');
         var ticketnumber = $("input[name='ticketnumber']").val();
         var rating = userRating;
         var status = $("select[name='status']").val();
-
-        //var reason = $("select[name='reason']").val();
         var comments = $("textarea[name='comments']").val();
-        
-        console.log(prefix,ticketnumber,rating, status, reason, comments);
-
                  
                  $.ajax({
                      type: "POST",
@@ -420,7 +449,9 @@ var tick = getUrlParameter('ticketnumber');
                      }
                  });
              });
-    
+
+    });
+
     </script>
 
     <!-- Optional JavaScript -->

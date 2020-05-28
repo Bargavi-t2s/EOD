@@ -22,6 +22,13 @@ class ManageFeedback
         $result = mysqli_fetch_assoc($result);
         return $result;
     }
+    public function getfeedbackdetails($ticketnumber,$prefix)
+    {
+        $sql = "SELECT `mark`, `description` FROM " . $this->table ." WHERE ticket_number=".$ticketnumber." AND prefix='".$prefix."';" ;
+        $result = mysqli_query( $this->readConn,$sql);
+        $result = mysqli_fetch_assoc($result);
+        return $result;
+    }
 
 
     public function insert($form_fields=[])
