@@ -10,15 +10,16 @@ $ManageEodLogs = new ManageEodLogs();
    if($_POST['ticketnumber'])
    {
     $ticketnumber = $_POST['ticketnumber'];
+    $prefix = $_POST['prefix'];
    }
 if($db)
  {
   if($ticketnumber)
   {
-  if($i=$ManageEod->getRecordsByTicketnumber($ticketnumber))
+  if($i=$ManageEod->getRecordsByTicketnumber($ticketnumber, $prefix))
  {
  	echo json_encode( array( 
-    'prefix'             => ($i['prefix']),
+    // 'prefix'             => ($i['prefix']),
  	  'description'        => ($i['description']),
     'status'             => ($i['status']),
     'estimatedtime'      => ($i['estimated_time']),

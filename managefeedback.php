@@ -22,11 +22,11 @@ class ManageFeedback
         $result = mysqli_fetch_assoc($result);
         return $result;
     }
-    public function getfeedbackdetails($ticketnumber,$prefix)
+
+    public function get_timelinedetails($ticketnumber,$prefix)
     {
-        $sql = "SELECT `mark`, `description` FROM " . $this->table ." WHERE ticket_number=".$ticketnumber." AND prefix='".$prefix."';" ;
+        $sql = "SELECT `created_at`, `status` FROM manage_eod_logs WHERE eod_id = (SELECT id FROM ". $this->table ." WHERE ticket_number=".$ticketnumber." AND prefix='".$prefix."');" ;
         $result = mysqli_query( $this->readConn,$sql);
-        $result = mysqli_fetch_assoc($result);
         return $result;
     }
 

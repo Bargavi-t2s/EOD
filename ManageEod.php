@@ -65,9 +65,9 @@ class ManageEod
     }
 
 
-    public function getRecordsByTicketnumber($ticketnumber)
+    public function getRecordsByTicketnumber($ticketnumber,$prefix)
     {
-        $sql = "SELECT `prefix`,`description`, `status`, `estimated_time`, `login_time`,`logout_time`,`remaining_time`,`complete_percentage`,`comments`,`is_subticket`,`main_ticket_no`,`is_testing`,`iteration_no`,`mark`  FROM " . $this->table ."  WHERE ticket_number=".$ticketnumber." ;" ;
+        $sql = "SELECT `description`, `status`, `estimated_time`, `login_time`,`logout_time`,`remaining_time`,`complete_percentage`,`comments`,`is_subticket`,`main_ticket_no`,`is_testing`,`iteration_no`,`mark`  FROM " . $this->table ."  WHERE ticket_number=".$ticketnumber." AND prefix='".$prefix."';" ;
         $result = mysqli_query( $this->readConn,$sql);
         $result = mysqli_fetch_assoc($result);
         return $result;

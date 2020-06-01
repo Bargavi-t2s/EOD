@@ -285,15 +285,19 @@ h2
               console.log("inside view");
               var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
               console.log(ticketnumber);
+              var prefix = $(this).closest('tr').find('td:eq(1)').text();
               $.ajax({
               type: "POST",
               url: "get_ticket_values.php",
               cache: false,
               dataType: "json",
-              data: { ticketnumber:ticketnumber},
+              data: { 
+                ticketnumber:ticketnumber,
+                prefix      :prefix
+                    },
               success: function (result) {
                 console.log("This is inside view success");
-                $("#modal-title").html("Prefix = "+result.prefix+"<br>Ticket No. = "+ticketnumber+"<br> The mark = "+result.mark);
+                $("#modal-title").html("Prefix = "+prefix+"<br>Ticket No. = "+ticketnumber+"<br> The mark = "+result.mark);
                 var sentence = "Description is '"+result.description+"'<br>";
                 sentence+="Status = "+result.status+"<br>";
                 sentence+="Estimated time = "+result.estimatedtime+"<br>";
@@ -338,15 +342,19 @@ h2
               $('#completepercentage1').find('option').remove();
               $("#eodform1").bootstrapValidator('resetForm', true);
               var ticketnumber = $(this).closest('tr').find('td:eq(2)').text();
+              var prefix = $(this).closest('tr').find('td:eq(1)').text();
               $.ajax({
               type: "POST",
               url: "get_ticket_values.php",
               cache: false,
               dataType: "json",
-              data: { ticketnumber:ticketnumber},
+              data: { 
+                ticketnumber:ticketnumber,
+                prefix      :prefix
+              },
               success: function (result) {
                 console.log("This is inside edit success");
-              $('#prefix1').val(result.prefix);
+              $('#prefix1').val(prefix);
               $('#ticketnumber1').val(ticketnumber);
               $('#description1').val(result.description);
               $('#status1').val(result.status);
